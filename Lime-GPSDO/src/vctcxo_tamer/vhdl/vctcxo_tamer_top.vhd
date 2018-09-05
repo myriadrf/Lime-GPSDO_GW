@@ -17,6 +17,10 @@ use ieee.numeric_std.all;
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity vctcxo_tamer_top is
+   generic ( 
+      UART_BAUD_RATE          : positive := 9600;
+      MM_CLOCK_FREQUENCY      : positive := 100000000
+   );
    port (
       -- SPI interface
       -- Address and location of SPI memory module
@@ -52,8 +56,13 @@ entity vctcxo_tamer_top is
       mm_wait_req          : out std_logic := '0';
       
       -- Avalon Interrupts
-      mm_irq               : out std_logic := '0'
+      mm_irq               : out std_logic := '0';
       
+      -- To UART MODULE (TESTING)
+      fan_ctrl_in          : in std_logic;
+      uart_tx              : out std_logic
+   
+   
       
       );
 end vctcxo_tamer_top;
@@ -63,24 +72,35 @@ end vctcxo_tamer_top;
 -- ----------------------------------------------------------------------------
 architecture arch of vctcxo_tamer_top is
 --declare signals,  components here
-signal mm_reset_n             : std_logic;
-
---inst0
-signal inst0_pps_1s_error     : std_logic_vector (31 downto 0); 
-signal inst0_pps_10s_error    : std_logic_vector (31 downto 0); 
-signal inst0_pps_100s_error   : std_logic_vector (31 downto 0); 
-signal inst0_mm_irq           : std_logic;
-signal inst0_accuracy         : std_logic_vector (3 downto 0);
-signal inst0_state            : std_logic_vector (3 downto 0);
-signal inst0_dac_tuned_val    : std_logic_vector (15 downto 0); 
-signal inst0_pps_1s_err_tol   : std_logic_vector (31 downto 0); 
-signal inst0_pps_10s_err_tol  : std_logic_vector (31 downto 0);
-signal inst0_pps_100s_err_tol : std_logic_vector (31 downto 0);
+signal mm_reset_n                : std_logic;
+   
+--inst0  
+signal inst0_pps_1s_error        : std_logic_vector (31 downto 0); 
+signal inst0_pps_10s_error       : std_logic_vector (31 downto 0); 
+signal inst0_pps_100s_error      : std_logic_vector (31 downto 0); 
+signal inst0_mm_irq              : std_logic;
+signal inst0_accuracy            : std_logic_vector (3 downto 0);
+signal inst0_state               : std_logic_vector (3 downto 0);
+signal inst0_dac_tuned_val       : std_logic_vector (15 downto 0); 
+signal inst0_pps_1s_err_tol      : std_logic_vector (31 downto 0); 
+signal inst0_pps_10s_err_tol     : std_logic_vector (31 downto 0);
+signal inst0_pps_100s_err_tol    : std_logic_vector (31 downto 0);
+signal inst0_pps_1s_count_v      : std_logic;
+signal inst0_pps_10s_count_v     : std_logic;
+signal inst0_pps_100s_count_v    : std_logic;
 
 --inst1 
-signal inst1_pps_1s_err_tol   : std_logic_vector (31 downto 0); 
-signal inst1_pps_10s_err_tol  : std_logic_vector (31 downto 0);
-signal inst1_pps_100s_err_tol : std_logic_vector (31 downto 0);
+signal inst1_pps_1s_err_tol      : std_logic_vector (31 downto 0); 
+signal inst1_pps_10s_err_tol     : std_logic_vector (31 downto 0);
+signal inst1_pps_100s_err_tol    : std_logic_vector (31 downto 0);
+
+--inst2
+signal inst2_uart_data_in        : std_logic_vector(7 downto 0);
+signal inst2_uart_data_in_stb    : std_logic;
+
+
+--inst3  
+signal inst3_DATA_STREAM_IN_ACK  : std_logic;
 
 
 
@@ -118,7 +138,11 @@ mm_reset_n <= not mm_reset;
       pps_100s_error       => inst0_pps_100s_error,
       accuracy             => inst0_accuracy,
       state                => inst0_state,
-      dac_tuned_val        => inst0_dac_tuned_val
+      dac_tuned_val        => inst0_dac_tuned_val,
+      pps_1s_count_v       => inst0_pps_1s_count_v,
+      pps_10s_count_v      => inst0_pps_10s_count_v,
+      pps_100s_count_v     => inst0_pps_100s_count_v
+      
     );
  
  
@@ -161,6 +185,53 @@ mm_reset_n <= not mm_reset;
       pps_10s_err       => inst0_pps_10s_error,
       pps_100s_err      => inst0_pps_100s_error
       
+   );
+   
+   
+   vctcxo_tamer_log_inst2 : entity work.vctcxo_tamer_log
+   port map(
+      clk                  => mm_clock,
+      reset_n              => mm_reset_n,
+         
+      --Data to log  
+      pps_1s_error         => inst0_pps_1s_error,
+      pps_10s_error        => inst0_pps_10s_error,
+      pps_100s_error       => inst0_pps_100s_error,
+      accuracy             => inst0_accuracy,
+      state                => inst0_state,
+      dac_tuned_val        => inst0_dac_tuned_val,
+      pps_1s_count_v       => inst0_pps_1s_count_v,
+      pps_10s_count_v      => inst0_pps_10s_count_v,
+      pps_100s_count_v     => inst0_pps_100s_count_v,
+      fan_ctrl_in          => fan_ctrl_in,
+      
+      --To uart module
+      uart_data_in         => inst2_uart_data_in,
+      uart_data_in_stb     => inst2_uart_data_in_stb,
+      uart_data_in_ack     => inst3_DATA_STREAM_IN_ACK
+      
+      );
+   
+   
+-- ----------------------------------------------------------------------------
+-- UART module
+-- ----------------------------------------------------------------------------
+UART_inst3 : entity work.UART
+   generic map(
+      BAUD_RATE            => UART_BAUD_RATE,
+      CLOCK_FREQUENCY      => MM_CLOCK_FREQUENCY
+   )
+    port map(     
+      CLOCK                => mm_clock,   
+      RESET                => mm_reset,
+      DATA_STREAM_IN       => inst2_uart_data_in,
+      DATA_STREAM_IN_STB   => inst2_uart_data_in_stb,
+      DATA_STREAM_IN_ACK   => inst3_DATA_STREAM_IN_ACK,
+      DATA_STREAM_OUT      => open,
+      DATA_STREAM_OUT_STB  => open,
+      DATA_STREAM_OUT_ACK  => '0',
+      TX                   => uart_tx,
+      RX                   => '0'
    );
    
    

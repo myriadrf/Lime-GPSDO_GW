@@ -68,7 +68,10 @@ entity vctcxo_tamer is
         pps_100s_error     :   out std_logic_vector(31 downto 0);
         accuracy           :   out std_logic_vector(3 downto 0);
         state              :   out std_logic_vector(3 downto 0);
-        dac_tuned_val      :   out std_logic_vector(15 downto 0)
+        dac_tuned_val      :   out std_logic_vector(15 downto 0);
+        pps_1s_count_v     :   out std_logic;
+        pps_10s_count_v    :   out std_logic;
+        pps_100s_count_v   :   out std_logic
     );
 end entity;
 
@@ -545,5 +548,10 @@ begin
    accuracy       <= mm_accuracy_reg;
    state          <= mm_tune_state_reg(3 downto 0);
    dac_tuned_val  <= mm_dac_tuned_val;
+   
+   --output ports
+   pps_1s_count_v     <= pps_1s.count_v;
+   pps_10s_count_v    <= pps_10s.count_v;
+   pps_100s_count_v   <= pps_100s.count_v;
 
 end architecture;

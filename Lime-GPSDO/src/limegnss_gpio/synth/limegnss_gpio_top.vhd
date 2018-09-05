@@ -19,7 +19,8 @@ use ieee.numeric_std.all;
 entity limegnss_gpio_top is
    generic ( 
       UART_BAUD_RATE          : positive := 9600;
-      VCTCXO_CLOCK_FREQUENCY  : positive := 30720000
+      VCTCXO_CLOCK_FREQUENCY  : positive := 30720000;
+      MM_CLOCK_FREQUENCY      : positive := 100000000
    );
    port (
       areset_n          : in std_logic;
@@ -63,7 +64,12 @@ entity limegnss_gpio_top is
       mm_wait_req       : out std_logic := '0';
       
       -- Avalon Interrupts
-      mm_irq            : out std_logic := '0'
+      mm_irq            : out std_logic := '0';
+      
+      -- Testing (UART logger)
+      fan_ctrl_in       : in std_logic;
+      uart_tx           : out std_logic
+      
       
       
       );
@@ -100,6 +106,10 @@ areset <= not areset_n;
 -- VCTCXO tamer instance
 -- ----------------------------------------------------------------------------   
 vctcxo_tamer_top_inst0 : entity work.vctcxo_tamer_top
+   generic map(
+      UART_BAUD_RATE          => UART_BAUD_RATE,
+      MM_CLOCK_FREQUENCY      => MM_CLOCK_FREQUENCY
+   )
    port map(
       maddress             => tamercfg_maddress,
       sdin                 => sdin,
@@ -125,7 +135,10 @@ vctcxo_tamer_top_inst0 : entity work.vctcxo_tamer_top
       mm_rd_datav          => mm_rd_datav,
       mm_wait_req          => mm_wait_req,      
       -- Avalon Interrupts
-      mm_irq               => mm_irq
+      mm_irq               => mm_irq,
+      fan_ctrl_in          => fan_ctrl_in,
+      uart_tx              => uart_tx
+      
    );
    
    

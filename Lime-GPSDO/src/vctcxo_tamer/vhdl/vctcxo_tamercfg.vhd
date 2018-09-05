@@ -65,7 +65,7 @@ architecture arch of vctcxo_tamercfg is
    signal dout_reg: std_logic_vector(15 downto 0);    -- Data out register
    signal dout_reg_sen, dout_reg_len: std_logic;
    
-   signal mem: marray16x16;                           -- Config memory
+   signal mem: marray32x16;                           -- Config memory
    signal mem_we: std_logic;
    
    signal oe: std_logic;                              -- Tri state buffers control
@@ -193,22 +193,22 @@ begin
          mem(13)  <= "0000000000000000"; --  0 free, PPS_100S_ERR_L[15:0]
          mem(14)  <= "0000000000000000"; --  0 free, PPS_100S_ERR_H[15:0]
          mem(15)  <= "0000000000000000"; --  0 free, Reserved
---         mem(16)  <= "0000000000000000"; --  0 free, Reserved
---         mem(17)  <= "0000000000000000"; --  0 free, Reserved
---         mem(18)  <= "0000000000000000"; --  0 free, Reserved
---         mem(19)  <= "0000000000000000"; --  0 free, Reserved
---         mem(20)  <= "0000000000000000"; --  0 free, Reserved
---         mem(21)  <= "0000000000000000"; --  0 free, Reserved
---         mem(22)  <= "0000000000000000"; --  0 free, Reserved
---         mem(23)  <= "0000000000000000"; --  0 free, Reserved
---         mem(24)  <= "0000000000000000"; --  0 free, Reserved
---         mem(25)  <= "0000000000000000"; --  0 free, Reserved
---         mem(26)  <= "0000000000000000"; --  0 free, Reserved
---         mem(27)  <= "0000000000000000"; --  0 free, Reserved
---         mem(28)  <= "0000000000000000"; --  0 free, Reserved
---         mem(29)  <= "0000000000000000"; --  0 free, Reserved
---         mem(30)  <= "0000000000000000"; --  0 free, Reserved
---         mem(31)  <= "0000000000000000"; --  0 free, Reserved
+         mem(16)  <= "0000000000000000"; --  0 free, Reserved
+         mem(17)  <= "0000000000000000"; --  0 free, Reserved
+         mem(18)  <= "0000000000000000"; --  0 free, Reserved
+         mem(19)  <= "0000000000000000"; --  0 free, Reserved
+         mem(20)  <= "0000000000000000"; --  0 free, Reserved
+         mem(21)  <= "0000000000000000"; --  0 free, Reserved
+         mem(22)  <= "0000000000000000"; --  0 free, Reserved
+         mem(23)  <= "0000000000000000"; --  0 free, Reserved
+         mem(24)  <= "0000000000000000"; --  0 free, Reserved
+         mem(25)  <= "0000000000000000"; --  0 free, Reserved
+         mem(26)  <= "0000000000000000"; --  0 free, Reserved
+         mem(27)  <= "0000000000000000"; --  0 free, Reserved
+         mem(28)  <= "0000000000000000"; --  0 free, Reserved
+         mem(29)  <= "0000000000000000"; --  0 free, Reserved
+         mem(30)  <= "0000000000000000"; --  0 free, Reserved
+         mem(31)  <= "0000000000000000"; --  0 free, Reserved
             
       elsif sclk'event and sclk = '1' then
             if mem_we = '1' then
