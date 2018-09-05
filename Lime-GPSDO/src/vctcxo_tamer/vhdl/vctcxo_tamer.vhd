@@ -130,19 +130,19 @@ architecture arch of vctcxo_tamer is
         count_v : std_logic;
     end record;
 
-   signal pps_1s   : count_t := ( target  => x"0000_0000_0262_5A00", --4000e4
+   signal pps_1s   : count_t := ( target  => x"0000_0000_01D4_C000", -- 3072e4
                                    count   => (others => '0'),
                                    error   => (others => '0'),
                                    error_v => '0',
                                    count_v => '0' );                                
 
-   signal pps_10s  : count_t := ( target  => x"0000_0000_17D7_8400", -- 4000e5
+   signal pps_10s  : count_t := ( target  => x"0000_0000_124F_8000", -- 3072e5
                                    count   => (others => '0'),
                                    error   => (others => '0'),
                                    error_v => '0',
                                    count_v => '0' );
                                    
-   signal pps_100s : count_t := ( target  => x"0000_0000_EE6B_2800", -- 4000e6
+   signal pps_100s : count_t := ( target  => x"0000_0000_B71B_0000", -- 3072e6
                                    count   => (others => '0'),
                                    error   => (others => '0'),
                                    error_v => '0',
