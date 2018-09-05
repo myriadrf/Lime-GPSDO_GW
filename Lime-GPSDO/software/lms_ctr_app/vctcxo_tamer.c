@@ -13,7 +13,7 @@ uint8_t vctcxo_tamer_ctrl_reg = 0x00;
  * by the VCTCXO calibration algorithm to avoid constant read requests
  * going out to the DAC. Initial power-up state of the DAC is mid-scale.
  */
-uint16_t vctcxo_trim_dac_value = 0x007D;
+uint16_t vctcxo_trim_dac_value = 0x77FA;
 
 uint8_t vctcxo_tamer_read(uint8_t addr) {
     return (uint8_t)IORD_8DIRECT(AVALON_MM_EXTERNAL_0_BASE, addr);

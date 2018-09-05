@@ -56,7 +56,7 @@ uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Tx = (tLMS_Ctrl_Packet*)glEp0Buffer_Tx;
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Rx = (tLMS_Ctrl_Packet*)glEp0Buffer_Rx;
 
-unsigned char dac_val = 180;
+uint16_t dac_val = 30714;		//TCXO DAC value
 unsigned char dac_data[2];
 
 signed short int converted_val = 300;
@@ -224,26 +224,28 @@ void boot_from_flash(void)
  *	@param oe output enable control: 0 - output disabled, 1 - output enabled
  *	@param data pointer to DAC value (1 byte)
  */
-void Control_TCXO_DAC (unsigned char oe, unsigned char *data) //controls DAC (AD5601)
+void Control_TCXO_DAC (unsigned char oe, uint16_t *data) //controls DAC (AD5601)
 {
 	volatile int spirez;
-	unsigned char DAC_data[2];
+	unsigned char DAC_data[3];
 
 	if (oe == 0) //set DAC out to three-state
 	{
-		DAC_data[0] = 0xC0; //POWER-DOWN MODE = THREE-STATE (MSB bits = 11) + MSB data
-		DAC_data[1] = 0x00; //LSB data
+		DAC_data[0] = 0x03; //POWER-DOWN MODE = THREE-STATE (PD[1:0]([17:16]) = 11)
+		DAC_data[1] = 0x00;
+		DAC_data[2] = 0x00; //LSB data
 
-		spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, DAC_data, 0, NULL, 0);
+		spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 3, DAC_data, 0, NULL, 0);
 	}
 	else //enable DAC output, set new val
 	{
-		DAC_data[0] = (*data) >>2 & 0x3F; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
-		DAC_data[1] = (*data) <<6 & 0xC0; //LSB data
+		DAC_data[0] = 0; //POWER-DOWN MODE = NORMAL OPERATION PD[1:0]([17:16]) = 00)
+		DAC_data[1] = ((*data) >>8) & 0xFF;
+		DAC_data[2] = ((*data) >>0) & 0xFF;
 
 	    /* Update cached value of trim DAC setting */
 	    vctcxo_trim_dac_value = (uint16_t) *data;
-		spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, DAC_data, 0, NULL, 0);
+		spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 3, DAC_data, 0, NULL, 0);
 
 
 	}
@@ -269,8 +271,8 @@ int main()
     uint8_t vctcxo_tamer_en=0,	vctcxo_tamer_en_old = 0;
 
     // Trim DAC constants
-    const uint16_t trimdac_min       = 0x0033; // Decimal value = 51
-    const uint16_t trimdac_max       = 0x00FE; // Decimal value = 254
+    const uint16_t trimdac_min       = 0x1938; // Decimal value = 6456
+    const uint16_t trimdac_max       = 0xE2F3; // Decimal value = 58099
 
     // Trim DAC calibration line
     line_t trimdac_cal_line;
@@ -298,7 +300,7 @@ int main()
     //uint8_t spi_rdbuf[2] = {0x01, 0x00};
 
     // Write initial data to the DAC
-	dac_val = 180; //default DAC value
+	dac_val = 30714; //default DAC value
 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
 
 //	dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
@@ -440,7 +442,7 @@ int main()
 
                 /* Tune to the minimum DAC value */
                 vctcxo_trim_dac_write( 0x08, trimdac_min );
-                dac_val = (uint8_t) trimdac_min;
+                dac_val = (uint16_t) trimdac_min;
             	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
 
                 /* State to enter upon the next interrupt */
@@ -456,7 +458,7 @@ int main()
 
                 /* Tune to the maximum DAC value */
                 vctcxo_trim_dac_write( 0x08, trimdac_max );
-                dac_val = (uint8_t) trimdac_max;
+                dac_val = (uint16_t) trimdac_max;
             	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
 
                 /* State to enter upon the next interrupt */
@@ -486,7 +488,7 @@ int main()
 
                 /* Set the trim DAC count to the y-intercept */
                 vctcxo_trim_dac_write( 0x08, trimdac_cal_line.y_intercept );
-                dac_val = (uint8_t) trimdac_cal_line.y_intercept;
+                dac_val = (uint16_t) trimdac_cal_line.y_intercept;
             	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
 
                 /* State to enter upon the next interrupt */
@@ -511,7 +513,7 @@ int main()
                 	// Write tuned val to VCTCXO_tamer MM registers
                     vctcxo_trim_dac_write( 0x08, vctcxo_trim_dac_value);
                     // Change DAC value
-                    dac_val = (uint8_t) vctcxo_trim_dac_value;
+                    dac_val = (uint16_t) vctcxo_trim_dac_value;
                 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
 
                 } else if( vctcxo_tamer_pkt.pps_10s_error_flag ) {
@@ -520,7 +522,7 @@ int main()
                 	// Write tuned val to VCTCXO_tamer MM registers
                     vctcxo_trim_dac_write( 0x08, vctcxo_trim_dac_value);
                     // Change DAC value
-                    dac_val = (uint8_t) vctcxo_trim_dac_value;
+                    dac_val = (uint16_t) vctcxo_trim_dac_value;
                 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
 
                 } else if( vctcxo_tamer_pkt.pps_100s_error_flag ) {
@@ -529,7 +531,7 @@ int main()
                 	// Write tuned val to VCTCXO_tamer MM registers
                     vctcxo_trim_dac_write( 0x08, vctcxo_trim_dac_value);
                     // Change DAC value
-                    dac_val = (uint8_t) vctcxo_trim_dac_value;
+                    dac_val = (uint16_t) vctcxo_trim_dac_value;
                 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
                 }
 
@@ -851,8 +853,8 @@ int main()
 								LMS_Ctrl_Packet_Tx->Data_field[0 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[block]; //ch
 								LMS_Ctrl_Packet_Tx->Data_field[1 + (block * 4)] = 0x00; //RAW //unit, power
 
-								LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)] = 0; //signed val, MSB byte
-								LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)] = dac_val; //signed val, LSB byte
+								LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)] = (dac_val >> 8) & 0xFF; //unsigned val, MSB byte
+								LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)] = dac_val & 0xFF; //unsigned val, LSB byte
 								break;
 
 							case 1: //temperature
@@ -900,7 +902,7 @@ int main()
 								{
 									if(LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)] == 0) //MSB byte empty?
 									{
-										dac_val = LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
+										dac_val = (LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)] << 8 ) + LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
 
 										Control_TCXO_DAC (1, &dac_val);
 
