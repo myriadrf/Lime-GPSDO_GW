@@ -644,7 +644,7 @@
   <parameter name="regfile_ramBlockType" value="Automatic" />
   <parameter name="register_file_por" value="false" />
   <parameter name="resetOffset" value="0" />
-  <parameter name="resetSlave" value="onchip_flash_0.data" />
+  <parameter name="resetSlave" value="onchip_memory2_0.s1" />
   <parameter name="resetrequest_enabled" value="true" />
   <parameter name="setting_HBreakTest" value="false" />
   <parameter name="setting_HDLSimCachesCleared" value="true" />
@@ -739,7 +739,7 @@
    enabled="1">
   <parameter name="AUTO_CLOCK_RATE" value="40000000" />
   <parameter name="CLOCK_FREQUENCY" value="30.72" />
-  <parameter name="CONFIGURATION_MODE">Dual Compressed Images</parameter>
+  <parameter name="CONFIGURATION_MODE">Single Uncompressed Image with Memory Initialization</parameter>
   <parameter name="CONFIGURATION_SCHEME">Internal Configuration</parameter>
   <parameter name="DATA_INTERFACE" value="Parallel" />
   <parameter name="DEVICE_FAMILY" value="MAX 10" />
@@ -748,7 +748,7 @@
   <parameter name="READ_BURST_MODE" value="Incrementing" />
   <parameter name="SECTOR_ACCESS_MODE">Read only,Read and write,Read and write,Read and write,Read and write</parameter>
   <parameter name="autoInitializationFileName">$${FILENAME}_onchip_flash_0</parameter>
-  <parameter name="initFlashContent" value="true" />
+  <parameter name="initFlashContent" value="false" />
   <parameter name="initializationFileName">altera_onchip_flash.hex</parameter>
   <parameter name="initializationFileNameForSim">altera_onchip_flash.dat</parameter>
   <parameter name="useNonDefaultInitFile" value="false" />
@@ -770,7 +770,7 @@
   <parameter name="ecc_enabled" value="false" />
   <parameter name="enPRInitMode" value="false" />
   <parameter name="enableDiffWidth" value="false" />
-  <parameter name="initMemContent" value="false" />
+  <parameter name="initMemContent" value="true" />
   <parameter name="initializationFileName" value="onchip_mem.hex" />
   <parameter name="instanceID" value="NONE" />
   <parameter name="memorySize" value="32768" />

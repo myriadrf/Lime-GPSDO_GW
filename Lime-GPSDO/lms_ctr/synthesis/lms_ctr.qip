@@ -2,7 +2,7 @@ set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_NAME "Q
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_VERSION "18.0"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "lms_ctr" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../lms_ctr.sopcinfo"]
-set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name SLD_INFO "QSYS_NAME lms_ctr HAS_SOPCINFO 1 GENERATION_ID 1536069767"
+set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name SLD_INFO "QSYS_NAME lms_ctr HAS_SOPCINFO 1 GENERATION_ID 1536217004"
 set_global_assignment -library "lms_ctr" -name MISC_FILE [file join $::quartus(qip_path) "../lms_ctr.cmp"]
 set_global_assignment -library "lms_ctr" -name SLD_FILE [file join $::quartus(qip_path) "lms_ctr.regmap"]
 set_global_assignment -library "lms_ctr" -name SLD_FILE [file join $::quartus(qip_path) "lms_ctr.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_DI
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTUzNjA2OTc2Nw==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTUzNjIxNzAwNA==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::TUFYIDEw::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::MTBNMTZTQVUxNjlDOEc=::QXV0byBERVZJQ0U="
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::OA==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -931,12 +931,14 @@ set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -nam
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZGF0YVdpZHRoMg==::MzI=::U2xhdmUgUzIgRGF0YSB3aWR0aA=="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZHVhbFBvcnQ=::ZmFsc2U=::RHVhbC1wb3J0IGFjY2Vzcw=="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9lbmFibGVEaWZmV2lkdGg=::ZmFsc2U=::ZGVyaXZlZF9lbmFibGVEaWZmV2lkdGg="
-set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "aW5pdE1lbUNvbnRlbnQ=::ZmFsc2U=::SW5pdGlhbGl6ZSBtZW1vcnkgY29udGVudA=="
+set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "aW5pdE1lbUNvbnRlbnQ=::dHJ1ZQ==::SW5pdGlhbGl6ZSBtZW1vcnkgY29udGVudA=="
+set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZW5QUkluaXRNb2Rl::ZmFsc2U=::RW5hYmxlIFBhcnRpYWwgUmVjb25maWd1cmF0aW9uIEluaXRpYWxpemF0aW9uIE1vZGU="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bWVtb3J5U2l6ZQ==::MzI3Njg=::VG90YWwgbWVtb3J5IHNpemU="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "c2ltQWxsb3dNUkFNQ29udGVudHNGaWxl::ZmFsc2U=::QWxsb3cgTVJBTSBjb250ZW50cyBmaWxlIGZvciBzaW11bGF0aW9u"
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "c2ltTWVtSW5pdE9ubHlGaWxlbmFtZQ==::MA==::U2ltdWxhdGlvbiBtZW1pbml0IG9ubHkgaGFzIGZpbGVuYW1l"
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9zaW5nbGVDbG9ja09wZXJhdGlvbg==::ZmFsc2U=::ZGVyaXZlZF9zaW5nbGVDbG9ja09wZXJhdGlvbg=="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "c2xhdmUxTGF0ZW5jeQ==::MQ==::U2xhdmUgczEgTGF0ZW5jeQ=="
+set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "dXNlTm9uRGVmYXVsdEluaXRGaWxl::ZmFsc2U=::RW5hYmxlIG5vbi1kZWZhdWx0IGluaXRpYWxpemF0aW9uIGZpbGU="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "d3JpdGFibGU=::dHJ1ZQ==::VHlwZQ=="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZWNjX2VuYWJsZWQ=::ZmFsc2U=::RXh0ZW5kIHRoZSBkYXRhIHdpZHRoIHRvIHN1cHBvcnQgRUNDIGJpdHM="
 set_global_assignment -entity "lms_ctr_onchip_memory2_0" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRyZXF1ZXN0X2VuYWJsZWQ=::dHJ1ZQ==::UmVzZXQgUmVxdWVzdA=="
@@ -961,10 +963,9 @@ set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "REFUQV9JTlRFUkZBQ0U=::UGFyYWxsZWw=::RGF0YSBpbnRlcmZhY2U="
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "UkVBRF9CVVJTVF9NT0RF::SW5jcmVtZW50aW5n::UmVhZCBidXJzdCBtb2Rl"
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "UkVBRF9CVVJTVF9DT1VOVA==::OA==::UmVhZCBidXJzdCBjb3VudA=="
-set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "Q09ORklHVVJBVElPTl9NT0RF::RHVhbCBDb21wcmVzc2VkIEltYWdlcw==::Q29uZmlndXJhdGlvbiBNb2Rl"
+set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "Q09ORklHVVJBVElPTl9NT0RF::U2luZ2xlIFVuY29tcHJlc3NlZCBJbWFnZSB3aXRoIE1lbW9yeSBJbml0aWFsaXphdGlvbg==::Q29uZmlndXJhdGlvbiBNb2Rl"
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "U0VDVE9SX0FDQ0VTU19NT0RF::UmVhZCBvbmx5LFJlYWQgYW5kIHdyaXRlLFJlYWQgYW5kIHdyaXRlLFJlYWQgYW5kIHdyaXRlLFJlYWQgYW5kIHdyaXRl::QWNjZXNzIE1vZGU="
-set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "aW5pdEZsYXNoQ29udGVudA==::dHJ1ZQ==::SW5pdGlhbGl6ZSBmbGFzaCBjb250ZW50"
-set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "dXNlTm9uRGVmYXVsdEluaXRGaWxl::ZmFsc2U=::RW5hYmxlIG5vbi1kZWZhdWx0IGluaXRpYWxpemF0aW9uIGZpbGU="
+set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "aW5pdEZsYXNoQ29udGVudA==::ZmFsc2U=::SW5pdGlhbGl6ZSBmbGFzaCBjb250ZW50"
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YXV0b0luaXRpYWxpemF0aW9uRmlsZU5hbWU=::bG1zX2N0cl9vbmNoaXBfZmxhc2hfMA==::YXV0b0luaXRpYWxpemF0aW9uRmlsZU5hbWU="
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "REVWSUNFX0ZBTUlMWQ==::TUFYIDEw::REVWSUNFX0ZBTUlMWQ=="
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "UEFSVF9OQU1F::MTBNMTZTQVUxNjlDOEc=::UEFSVF9OQU1F"
@@ -1008,9 +1009,9 @@ set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "UEFSQUxMRUxfTU9ERQ==::dHJ1ZQ==::UEFSQUxMRUxfTU9ERQ=="
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "UkVBRF9BTkRfV1JJVEVfTU9ERQ==::dHJ1ZQ==::UkVBRF9BTkRfV1JJVEVfTU9ERQ=="
 set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "V1JBUFBJTkdfQlVSU1RfTU9ERQ==::ZmFsc2U=::V1JBUFBJTkdfQlVSU1RfTU9ERQ=="
-set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "SVNfRFVBTF9CT09U::VHJ1ZQ==::SVNfRFVBTF9CT09U"
-set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "SVNfRVJBTV9TS0lQ::VHJ1ZQ==::SVNfRVJBTV9TS0lQ"
-set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "SVNfQ09NUFJFU1NFRF9JTUFHRQ==::VHJ1ZQ==::SVNfQ09NUFJFU1NFRF9JTUFHRQ=="
+set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "SVNfRFVBTF9CT09U::RmFsc2U=::SVNfRFVBTF9CT09U"
+set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "SVNfRVJBTV9TS0lQ::RmFsc2U=::SVNfRVJBTV9TS0lQ"
+set_global_assignment -entity "altera_onchip_flash" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "SVNfQ09NUFJFU1NFRF9JTUFHRQ==::RmFsc2U=::SVNfQ09NUFJFU1NFRF9JTUFHRQ=="
 set_global_assignment -entity "bitswap_qsys" -library "lms_ctr" -name IP_COMPONENT_NAME "Yml0c3dhcF9xc3lz"
 set_global_assignment -entity "bitswap_qsys" -library "lms_ctr" -name IP_COMPONENT_DISPLAY_NAME "Qml0c3dhcA=="
 set_global_assignment -entity "bitswap_qsys" -library "lms_ctr" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -1061,7 +1062,7 @@ set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_CO
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZXhjZXB0aW9uT2Zmc2V0::MzI=::RXhjZXB0aW9uIHZlY3RvciBvZmZzZXQ="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "Y3B1SUQ=::MA==::Q1BVSUQgY29udHJvbCByZWdpc3RlciB2YWx1ZQ=="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YnJlYWtPZmZzZXQ=::MzI=::QnJlYWsgdmVjdG9yIG9mZnNldA=="
-set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRTbGF2ZQ==::b25jaGlwX2ZsYXNoXzAuZGF0YQ==::UmVzZXQgdmVjdG9yIG1lbW9yeQ=="
+set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRTbGF2ZQ==::b25jaGlwX21lbW9yeTJfMC5zMQ==::UmVzZXQgdmVjdG9yIG1lbW9yeQ=="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZXhjZXB0aW9uU2xhdmU=::b25jaGlwX21lbW9yeTJfMC5zMQ==::RXhjZXB0aW9uIHZlY3RvciBtZW1vcnk="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YnJlYWtTbGF2ZQ==::Tm9uZQ==::QnJlYWsgdmVjdG9yIG1lbW9yeQ=="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "Y3B1QXJjaFJldg==::MQ==::QXJjaGl0ZWN0dXJlIFJldmlzaW9u"
@@ -1120,7 +1121,7 @@ set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_CO
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "aW5zdHJ1Y3Rpb25fbWFzdGVyX2hpZ2hfcGVyZm9ybWFuY2VfcGFkZHJfc2l6ZQ==::MA==::SW5zdHJ1Y3Rpb24gTWFzdGVyIEhpZ2ggUGVyZm9ybWFuY2UgU2l6ZQ=="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZGF0YV9tYXN0ZXJfaGlnaF9wZXJmb3JtYW5jZV9wYWRkcl9iYXNl::MA==::RGF0YSBNYXN0ZXIgSGlnaCBQZXJmb3JtYW5jZSBCYXNlIEFkZHJlc3M="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZGF0YV9tYXN0ZXJfaGlnaF9wZXJmb3JtYW5jZV9wYWRkcl9zaXpl::MA==::RGF0YSBNYXN0ZXIgSGlnaCBQZXJmb3JtYW5jZSBTaXpl"
-set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRBYnNvbHV0ZUFkZHI=::MTA0ODU3Ng==::UmVzZXQgdmVjdG9y"
+set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRBYnNvbHV0ZUFkZHI=::MjEyOTkyMA==::UmVzZXQgdmVjdG9y"
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZXhjZXB0aW9uQWJzb2x1dGVBZGRy::MjEyOTk1Mg==::RXhjZXB0aW9uIHZlY3Rvcg=="
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YnJlYWtBYnNvbHV0ZUFkZHI=::MjE2NDc2OA==::QnJlYWsgdmVjdG9y"
 set_global_assignment -entity "lms_ctr_nios2_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bW11X1RMQk1pc3NFeGNBYnNBZGRy::MA==::RmFzdCBUTEIgTWlzcyBFeGNlcHRpb24gdmVjdG9y"
@@ -1214,7 +1215,7 @@ set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name I
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZXhjZXB0aW9uT2Zmc2V0::MzI=::RXhjZXB0aW9uIHZlY3RvciBvZmZzZXQ="
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "Y3B1SUQ=::MA==::Q1BVSUQgY29udHJvbCByZWdpc3RlciB2YWx1ZQ=="
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YnJlYWtPZmZzZXQ=::MzI=::QnJlYWsgdmVjdG9yIG9mZnNldA=="
-set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRTbGF2ZQ==::b25jaGlwX2ZsYXNoXzAuZGF0YQ==::UmVzZXQgdmVjdG9yIG1lbW9yeQ=="
+set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRTbGF2ZQ==::b25jaGlwX21lbW9yeTJfMC5zMQ==::UmVzZXQgdmVjdG9yIG1lbW9yeQ=="
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bW11X1RMQk1pc3NFeGNTbGF2ZQ==::Tm9uZQ==::RmFzdCBUTEIgTWlzcyBFeGNlcHRpb24gdmVjdG9yIG1lbW9yeQ=="
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZXhjZXB0aW9uU2xhdmU=::b25jaGlwX21lbW9yeTJfMC5zMQ==::RXhjZXB0aW9uIHZlY3RvciBtZW1vcnk="
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YnJlYWtTbGF2ZQ==::Tm9uZQ==::QnJlYWsgdmVjdG9yIG1lbW9yeQ=="
@@ -1303,7 +1304,7 @@ set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name I
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "aW5zdHJ1Y3Rpb25fbWFzdGVyX2hpZ2hfcGVyZm9ybWFuY2VfcGFkZHJfdG9w::MA==::aW5zdHJ1Y3Rpb25fbWFzdGVyX2hpZ2hfcGVyZm9ybWFuY2VfcGFkZHJfdG9w"
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZGF0YV9tYXN0ZXJfaGlnaF9wZXJmb3JtYW5jZV9wYWRkcl9iYXNl::MA==::ZGF0YV9tYXN0ZXJfaGlnaF9wZXJmb3JtYW5jZV9wYWRkcl9iYXNl"
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZGF0YV9tYXN0ZXJfaGlnaF9wZXJmb3JtYW5jZV9wYWRkcl90b3A=::MA==::ZGF0YV9tYXN0ZXJfaGlnaF9wZXJmb3JtYW5jZV9wYWRkcl90b3A="
-set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRBYnNvbHV0ZUFkZHI=::MTA0ODU3Ng==::UmVzZXQgdmVjdG9y"
+set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "cmVzZXRBYnNvbHV0ZUFkZHI=::MjEyOTkyMA==::UmVzZXQgdmVjdG9y"
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "ZXhjZXB0aW9uQWJzb2x1dGVBZGRy::MjEyOTk1Mg==::RXhjZXB0aW9uIHZlY3Rvcg=="
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YnJlYWtBYnNvbHV0ZUFkZHI=::MjE2NDc2OA==::QnJlYWsgdmVjdG9y"
 set_global_assignment -entity "lms_ctr_nios2_cpu_cpu" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bW11X1RMQk1pc3NFeGNBYnNBZGRy::MA==::RmFzdCBUTEIgTWlzcyBFeGNlcHRpb24gdmVjdG9y"
@@ -1525,6 +1526,7 @@ set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartu
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_uart.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_sysid_qsys_0.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_switch.v"]
+set_global_assignment -library "lms_ctr" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_onchip_memory2_0.hex"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_onchip_memory2_0.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_onchip_flash_util.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_onchip_flash.v"]

@@ -1231,8 +1231,8 @@ begin
 
 	onchip_flash_0 : component altera_onchip_flash
 		generic map (
-			INIT_FILENAME                       => "lms_ctr_onchip_flash_0.hex",
-			INIT_FILENAME_SIM                   => "lms_ctr_onchip_flash_0.dat",
+			INIT_FILENAME                       => "",
+			INIT_FILENAME_SIM                   => "",
 			DEVICE_FAMILY                       => "MAX 10",
 			PART_NAME                           => "10M16SAU169C8G",
 			DEVICE_ID                           => "16",
@@ -1274,9 +1274,9 @@ begin
 			PARALLEL_MODE                       => true,
 			READ_AND_WRITE_MODE                 => true,
 			WRAPPING_BURST_MODE                 => false,
-			IS_DUAL_BOOT                        => "True",
-			IS_ERAM_SKIP                        => "True",
-			IS_COMPRESSED_IMAGE                 => "True"
+			IS_DUAL_BOOT                        => "False",
+			IS_ERAM_SKIP                        => "False",
+			IS_COMPRESSED_IMAGE                 => "False"
 		)
 		port map (
 			clock                   => clk_clk,                                             --    clk.clk

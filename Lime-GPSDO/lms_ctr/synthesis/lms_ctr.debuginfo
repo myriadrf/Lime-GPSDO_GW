@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="lms_ctr" kind="system" version="18.0" fabric="QSYS">
  <!-- Format version 18.0 614 (Future versions may contain additional information.) -->
- <!-- 2018.09.04.17:03:14 -->
+ <!-- 2018.09.06.09:57:06 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1536069767</value>
+  <value>1536217004</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -7766,7 +7766,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESET_ADDR</name>
-   <value>0x00100000</value>
+   <value>0x00208000</value>
   </assignment>
   <assignment>
    <name>embeddedsw.configuration.DataCacheVictimBufImpl</name>
@@ -7802,7 +7802,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.configuration.resetSlave</name>
-   <value>onchip_flash_0.data</value>
+   <value>onchip_memory2_0.s1</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -7826,7 +7826,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,reset-addr</name>
-   <value>0x00100000</value>
+   <value>0x00208000</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.clock-frequency</name>
@@ -8262,7 +8262,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="resetSlave">
    <type>java.lang.String</type>
-   <value>onchip_flash_0.data</value>
+   <value>onchip_memory2_0.s1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -8982,7 +8982,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="resetAbsoluteAddr">
    <type>int</type>
-   <value>1048576</value>
+   <value>2129920</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -11164,10 +11164,6 @@ the requested settings for a module instance. -->
    <value>32</value>
   </assignment>
   <assignment>
-   <name>embeddedsw.memoryInfo.MEM_INIT_FILENAME</name>
-   <value>lms_ctr_onchip_flash_0</value>
-  </assignment>
-  <assignment>
    <name>embeddedsw.memoryInfo.USE_BYTE_ADDRESSING_FOR_HEX</name>
    <value>1</value>
   </assignment>
@@ -11221,7 +11217,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="CONFIGURATION_MODE">
    <type>java.lang.String</type>
-   <value>Dual Compressed Images</value>
+   <value>Single Uncompressed Image with Memory Initialization</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -11253,7 +11249,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SECTOR_STORAGE_TYPE">
    <type>[Ljava.lang.String;</type>
-   <value>UFM,UFM,CFM (Image 2),CFM (Image 2),CFM (Image 1)</value>
+   <value>UFM,UFM,CFM,CFM,CFM</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>true</visible>
@@ -11261,7 +11257,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="initFlashContent">
    <type>boolean</type>
-   <value>true</value>
+   <value>false</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -11271,7 +11267,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -11302,7 +11298,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="INIT_FILENAME">
    <type>java.lang.String</type>
-   <value>lms_ctr_onchip_flash_0.hex</value>
+   <value></value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -11310,7 +11306,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="INIT_FILENAME_SIM">
    <type>java.lang.String</type>
-   <value>lms_ctr_onchip_flash_0.dat</value>
+   <value></value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -11658,7 +11654,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="IS_DUAL_BOOT">
    <type>java.lang.String</type>
-   <value>True</value>
+   <value>False</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -11666,7 +11662,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="IS_ERAM_SKIP">
    <type>java.lang.String</type>
-   <value>True</value>
+   <value>False</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -11674,7 +11670,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="IS_COMPRESSED_IMAGE">
    <type>java.lang.String</type>
-   <value>True</value>
+   <value>False</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -12584,7 +12580,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_MEM_CONTENT</name>
-   <value>0</value>
+   <value>1</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INSTANCE_ID</name>
@@ -12712,7 +12708,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="initMemContent">
    <type>boolean</type>
-   <value>false</value>
+   <value>true</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12730,7 +12726,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -12810,7 +12806,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -14188,7 +14184,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1536069767</value>
+   <value>1536217004</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -14208,7 +14204,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1536069767</value>
+   <value>1536217004</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -14224,7 +14220,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1536069767</value>
+   <value>1536217004</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -29624,5 +29620,5 @@ parameters are a RESULT of the module parameters. -->
   <version>18.0</version>
  </plugin>
  <reportVersion>18.0 614</reportVersion>
- <uniqueIdentifier>00155D12CD0100000165A4E4A4E1</uniqueIdentifier>
+ <uniqueIdentifier>00155D12CD0100000165ADAB4AAF</uniqueIdentifier>
 </EnsembleReport>
