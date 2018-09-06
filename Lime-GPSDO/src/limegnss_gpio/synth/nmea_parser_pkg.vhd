@@ -36,6 +36,7 @@ package nmea_parser_pkg is
    constant C_GSA          : std_logic_vector(23 downto 0); -- Sentence ID = GNSS DOP and Active Satellites
    
    constant C_GPGSA        : std_logic_vector(39 downto 0);
+   constant C_GNGSA        : std_logic_vector(39 downto 0);
    constant C_GNGGA        : std_logic_vector(39 downto 0);
    constant C_GNRMC        : std_logic_vector(39 downto 0);
    
@@ -153,6 +154,7 @@ constant C_GN        : std_logic_vector(15 downto 0) := str_to_slv("GN");
 constant C_GSA       : std_logic_vector(23 downto 0) := str_to_slv("GSA");
 
 constant C_GPGSA     : std_logic_vector(39 downto 0) := str_to_slv("GPGSA");
+constant C_GNGSA     : std_logic_vector(39 downto 0) := str_to_slv("GNGSA");
 constant C_GNGGA     : std_logic_vector(39 downto 0) := str_to_slv("GNGGA");
 constant C_GNRMC     : std_logic_vector(39 downto 0) := str_to_slv("GNRMC");
    

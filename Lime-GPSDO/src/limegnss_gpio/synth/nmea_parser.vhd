@@ -34,6 +34,9 @@ entity nmea_parser is
       GPGSA_valid : out std_logic;                    -- GPGSA message valid
          --d2, Mode: 1 = Fix not available, 2 = 2D, 3 = 3D, Max char = 1
       GPGSA_fix   : out std_logic_vector(7 downto 0);
+      GNGSA_valid : out std_logic;                    -- GNGSA message valid
+         --d2, Mode: 1 = Fix not available, 2 = 2D, 3 = 3D, Max char = 1
+      GNGSA_fix   : out std_logic_vector(7 downto 0);     
          --RMC – Recommended Minimum Specific GNSS Data
       GNRMC_valid : out std_logic;                    -- GNRMC message valid
          --d1, UTC of position , Max char = 10
@@ -78,6 +81,10 @@ signal checksum_valid      : std_logic;
 --GPGSA
 signal gpgsa_valid_int     : std_logic;
 signal gpgsa_fix_int       : std_logic_vector(7 downto 0);
+
+--GNGSA
+signal gngsa_valid_int     : std_logic;
+signal gngsa_fix_int       : std_logic_vector(7 downto 0);
 
 --GNRMC
 signal gnrmc_valid_int     : std_logic;
@@ -325,6 +332,33 @@ begin
    end if;
 end process;
 
+-- ----------------------------------------------------------------------------
+-- GNGSA message
+-- ----------------------------------------------------------------------------
+GNGSA_proc : process(clk, reset_n)
+begin
+   if reset_n = '0' then 
+      gngsa_fix_int     <= (others=>'0');
+      gngsa_valid_int   <= '0';
+   elsif (clk'event AND clk='1') then 
+   
+      if data /= C_comma AND data_v = '1' then 
+         if data_field_cnt = gsa_fix_d then 
+            gngsa_fix_int <= data;
+         else 
+            gngsa_fix_int <= gngsa_fix_int;
+         end if;
+      else 
+         gngsa_fix_int <= gngsa_fix_int;
+      end if;
+      
+      if (nmea_talker_id & nmea_sentence_id) = C_GNGSA AND checksum_valid = '1' then 
+         gngsa_valid_int <= '1';
+      else 
+         gngsa_valid_int <= '0';
+      end if;
+   end if;
+end process;
 
 -- ----------------------------------------------------------------------------
 -- GNRMC message
@@ -438,6 +472,23 @@ begin
       end if;
       
       GPGSA_valid    <= gpgsa_valid_int;
+   end if;
+end process;
+
+-- ----------------------------------------------------------------------------
+-- GNGSA message output registers
+-- ----------------------------------------------------------------------------
+GNGSA_outreg : process(clk, reset_n)
+begin
+   if reset_n = '0' then 
+      GNGSA_valid    <= '0';
+      GNGSA_fix      <= (others=>'0');
+   elsif (clk'event AND clk='1') then 
+      if gngsa_valid_int = '1' then 
+         GNGSA_fix      <= gngsa_fix_int;
+      end if;
+      
+      GNGSA_valid    <= gngsa_valid_int;
    end if;
 end process;
 

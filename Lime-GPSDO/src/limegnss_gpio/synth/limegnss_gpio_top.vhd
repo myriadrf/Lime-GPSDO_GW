@@ -89,6 +89,7 @@ signal inst0_en                     : std_logic;
 --inst1
 signal inst1_sdout                  : std_logic;
 signal inst1_gpgsa_fix              : std_logic;
+signal inst1_gngsa_fix              : std_logic;
 
 --inst3
 signal inst3_data_out               : std_logic_vector(7 downto 0);
@@ -155,7 +156,8 @@ gnss_top_inst1 : entity work.gnss_top
       reset_n              => areset_n,
       data                 => uart_data_reg,
       data_v               => uart_data_valid,
-      gpgsa_fix            => inst1_gpgsa_fix
+      gpgsa_fix            => inst1_gpgsa_fix,
+      gngsa_fix            => inst1_gngsa_fix
      );   
 -- ----------------------------------------------------------------------------
 -- Led module
@@ -171,7 +173,7 @@ gnss_top_inst1 : entity work.gnss_top
       vctcxo_tune_accuracy    => inst0_vctcxo_tune_accuracy,
       
       --gnss module ports
-      gnss_fix                => inst1_gpgsa_fix,
+      gnss_fix                => inst1_gngsa_fix,--inst1_gpgsa_fix,
       gnss_tpulse             => gnss_tpulse,
       gnss_led_r              => fpga_led_r,
       gnss_led_g              => fpga_led_g
@@ -233,7 +235,7 @@ process(vctcxo_clk, areset_n)
 -- Output ports
 -- ----------------------------------------------------------------------------    
 sdout    <= inst0_sdout OR inst1_sdout;
-en       <= inst0_en AND inst1_gpgsa_fix;
+en       <= inst0_en AND inst1_gngsa_fix; --inst1_gpgsa_fix;
   
 end arch;   
 

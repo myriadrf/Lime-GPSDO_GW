@@ -36,7 +36,8 @@ entity gnss_top is
       data                 : in  std_logic_vector(7 downto 0);  --NMEA data character
       data_v               : in  std_logic;                     --NMEA data valid
       
-      gpgsa_fix            : out std_logic
+      gpgsa_fix            : out std_logic;
+      gngsa_fix            : out std_logic
 
 
         );
@@ -52,6 +53,8 @@ architecture arch of gnss_top is
 signal inst0_reset_n          : std_logic;
 signal inst0_GPGSA_valid      : std_logic;
 signal inst0_GPGSA_fix        : std_logic_vector(7 downto 0);
+signal inst0_GNGSA_valid      : std_logic;
+signal inst0_GNGSA_fix        : std_logic_vector(7 downto 0);
 signal inst0_GNRMC_valid      : std_logic;
 signal inst0_GNRMC_utc        : std_logic_vector(79 downto 0);
 signal inst0_GNRMC_status     : std_logic_vector(7 downto 0);
@@ -64,6 +67,8 @@ signal inst0_GNRMC_date       : std_logic_vector(47 downto 0);
 --inst1
 signal inst1_GPGSA_valid_bcd  : std_logic;                    
 signal inst1_GPGSA_fix_bcd    : std_logic_vector(3 downto 0);
+signal inst1_GNGSA_valid_bcd  : std_logic;                    
+signal inst1_GNGSA_fix_bcd    : std_logic_vector(3 downto 0);
 signal inst1_GNRMC_valid_bcd  : std_logic;                   
 signal inst1_GNRMC_utc_bcd    : std_logic_vector(35 downto 0);
 signal inst1_GNRMC_status     : std_logic;
@@ -99,6 +104,8 @@ nmea_parser_inst0 : entity work.nmea_parser
          
       GPGSA_valid    => inst0_GPGSA_valid,
       GPGSA_fix      => inst0_GPGSA_fix,
+      GNGSA_valid    => inst0_GNGSA_valid,
+      GNGSA_fix      => inst0_GNGSA_fix,
       GNRMC_valid    => inst0_GNRMC_valid,
       GNRMC_utc      => inst0_GNRMC_utc,
       GNRMC_status   => inst0_GNRMC_status,
@@ -119,6 +126,8 @@ nmea_parser_inst0 : entity work.nmea_parser
       reset_n          => inst0_reset_n,
       GPGSA_valid_str  => inst0_GPGSA_valid,
       GPGSA_fix_str    => inst0_GPGSA_fix,
+      GNGSA_valid_str  => inst0_GNGSA_valid,
+      GNGSA_fix_str    => inst0_GNGSA_fix,
       GNRMC_valid_str  => inst0_GNRMC_valid,
       GNRMC_utc_str    => inst0_GNRMC_utc,
       GNRMC_status_str => inst0_GNRMC_status,
@@ -130,6 +139,8 @@ nmea_parser_inst0 : entity work.nmea_parser
       
       GPGSA_valid_bcd  => inst1_GPGSA_valid_bcd,
       GPGSA_fix_bcd    => inst1_GPGSA_fix_bcd,
+      GNGSA_valid_bcd  => inst1_GNGSA_valid_bcd,
+      GNGSA_fix_bcd    => inst1_GNGSA_fix_bcd,
       GNRMC_valid_bcd  => inst1_GNRMC_valid_bcd,
       GNRMC_utc_bcd    => inst1_GNRMC_utc_bcd,
       GNRMC_status     => inst1_GNRMC_status,
@@ -184,6 +195,19 @@ nmea_parser_inst0 : entity work.nmea_parser
             gpgsa_fix <= '1';
          else 
             gpgsa_fix <= '0';
+         end if;
+      end if;
+   end process;
+   
+   process(clk, reset_n)
+   begin
+      if reset_n = '0' then 
+         gngsa_fix <= '0';
+      elsif (clk'event AND clk='1') then
+         if inst1_GNGSA_fix_bcd = x"3" then 
+            gngsa_fix <= '1';
+         else 
+            gngsa_fix <= '0';
          end if;
       end if;
    end process;
