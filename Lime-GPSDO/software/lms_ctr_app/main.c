@@ -9,7 +9,7 @@
 #include "io.h"
 #include "system.h"
 //#include "unistd.h"
-//#include <stdio.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
 //#include <string.h>
@@ -265,6 +265,8 @@ int main()
     char cnt = 0;
     int k;
 
+    printf("------ Lime-GPSDO v1.0; GW v1.0; ------\r\n");
+
     uint8_t status = 0;
 
     uint8_t vctcxo_tamer_irq = 0;
@@ -431,6 +433,7 @@ int main()
     		}
     	}
 
+
         /* Temporarily putting the VCTCXO Calibration stuff here. */
         if( vctcxo_tamer_pkt.ready ) {
 
@@ -447,6 +450,10 @@ int main()
 
                 /* State to enter upon the next interrupt */
                 tune_state = COARSE_TUNE_MAX;
+                printf("COARSE_TUNE_MIN: \r\n\t");
+                printf("DAC value: ");
+                printf("%u;\t", (unsigned int)dac_val);
+
 
                 break;
 
@@ -456,6 +463,9 @@ int main()
                  * as the 'x' coordinate for the first point */
                 trimdac_cal_line.point[0].x = vctcxo_tamer_pkt.pps_1s_error;
 
+                printf("1s_error: ");
+                printf("%i;\r\n", (int)vctcxo_tamer_pkt.pps_1s_error);
+
                 /* Tune to the maximum DAC value */
                 vctcxo_trim_dac_write( 0x08, trimdac_max );
                 dac_val = (uint16_t) trimdac_max;
@@ -463,6 +473,9 @@ int main()
 
                 /* State to enter upon the next interrupt */
                 tune_state = COARSE_TUNE_DONE;
+                printf("COARSE_TUNE_MAX: \r\n\t");
+                printf("DAC value: ");
+                printf("%u;\t", (unsigned int)dac_val);
 
                 break;
 
@@ -473,6 +486,9 @@ int main()
                 /* We have the error from the maximum DAC setting, store it
                  * as the 'x' coordinate for the second point */
                 trimdac_cal_line.point[1].x = vctcxo_tamer_pkt.pps_1s_error;
+
+                printf("1s_error: ");
+                printf("%i;\r\n", (int)vctcxo_tamer_pkt.pps_1s_error);
 
                 /* We now have two points, so we can calculate the equation
                  * for a line plotted with DAC counts on the Y axis and
@@ -493,6 +509,15 @@ int main()
 
                 /* State to enter upon the next interrupt */
                 tune_state = FINE_TUNE;
+                printf("COARSE_TUNE_DONE: \r\n\t");
+                printf("DAC value: ");
+                printf("%u;\r\n", (unsigned int)dac_val);
+                printf("FINE_TUNE: \r\n\t");
+                printf("DAC value \t");
+                printf("Accuracy \t");
+                printf("1s_ERROR \t");
+                printf("10s_ERROR \t");
+                printf("100s_ERROR \r\n\t");
 
                 break;
 
