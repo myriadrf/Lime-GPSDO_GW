@@ -27,7 +27,7 @@
 //4         reserved
 //5         slave-enable  r/w
 //6         end-of-packet-value r/w
-//INPUT_CLOCK: 40000000
+//INPUT_CLOCK: 50000000
 //ISMASTER: 1
 //DATABITS: 8
 //TARGETCLOCK: 10000000
@@ -97,7 +97,7 @@ reg              data_rd_strobe;
 reg     [ 15: 0] data_to_cpu;
 reg              data_wr_strobe;
 wire             dataavailable;
-reg     [  2: 0] delayCounter;
+reg     [  1: 0] delayCounter;
 wire             ds_MISO;
 wire             enableSS;
 wire             endofpacket;
@@ -255,8 +255,8 @@ wire             write_tx_holding;
     end
 
 
-  // slowclock is active once every 2 system clock pulses.
-  assign slowclock = slowcount == 2'h1;
+  // slowclock is active once every 3 system clock pulses.
+  assign slowclock = slowcount == 2'h2;
 
   assign p1_slowcount = ({2 {(transmitting && !slowclock)}} & (slowcount + 1)) |
     ({2 {(~((transmitting && !slowclock)))}} & 0);
@@ -302,11 +302,11 @@ wire             write_tx_holding;
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          delayCounter <= 4;
+          delayCounter <= 3;
       else 
         begin
           if (write_shift_reg)
-              delayCounter <= 4;
+              delayCounter <= 3;
           if (transmitting & slowclock & (delayCounter != 0))
               delayCounter <= delayCounter - 1;
         end
@@ -326,7 +326,7 @@ wire             write_tx_holding;
     end
 
 
-  assign enableSS = transmitting & (delayCounter != 4);
+  assign enableSS = transmitting & (delayCounter != 3);
   assign MOSI = shift_reg[7];
   assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {2 {1'b1} };
   assign SCLK = SCLK_reg;

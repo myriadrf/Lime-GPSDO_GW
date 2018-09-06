@@ -96,7 +96,7 @@ module lms_ctr_mm_interconnect_0 (
 		output wire [3:0]  onchip_flash_0_data_burstcount,                         //                                                 .burstcount
 		input  wire        onchip_flash_0_data_readdatavalid,                      //                                                 .readdatavalid
 		input  wire        onchip_flash_0_data_waitrequest,                        //                                                 .waitrequest
-		output wire [12:0] onchip_memory2_0_s1_address,                            //                              onchip_memory2_0_s1.address
+		output wire [13:0] onchip_memory2_0_s1_address,                            //                              onchip_memory2_0_s1.address
 		output wire        onchip_memory2_0_s1_write,                              //                                                 .write
 		input  wire [31:0] onchip_memory2_0_s1_readdata,                           //                                                 .readdata
 		output wire [31:0] onchip_memory2_0_s1_writedata,                          //                                                 .writedata
@@ -2087,7 +2087,7 @@ module lms_ctr_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (13),
+		.AV_ADDRESS_W                   (14),
 		.AV_DATA_W                      (32),
 		.UAV_DATA_W                     (32),
 		.AV_BURSTCOUNT_W                (1),

@@ -332,7 +332,7 @@ architecture rtl of lms_ctr is
 	component lms_ctr_onchip_memory2_0 is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
-			address    : in  std_logic_vector(12 downto 0) := (others => 'X'); -- address
+			address    : in  std_logic_vector(13 downto 0) := (others => 'X'); -- address
 			clken      : in  std_logic                     := 'X';             -- clken
 			chipselect : in  std_logic                     := 'X';             -- chipselect
 			write      : in  std_logic                     := 'X';             -- write
@@ -621,7 +621,7 @@ architecture rtl of lms_ctr is
 			onchip_flash_0_data_burstcount                         : out std_logic_vector(3 downto 0);                     -- burstcount
 			onchip_flash_0_data_readdatavalid                      : in  std_logic                     := 'X';             -- readdatavalid
 			onchip_flash_0_data_waitrequest                        : in  std_logic                     := 'X';             -- waitrequest
-			onchip_memory2_0_s1_address                            : out std_logic_vector(12 downto 0);                    -- address
+			onchip_memory2_0_s1_address                            : out std_logic_vector(13 downto 0);                    -- address
 			onchip_memory2_0_s1_write                              : out std_logic;                                        -- write
 			onchip_memory2_0_s1_readdata                           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			onchip_memory2_0_s1_writedata                          : out std_logic_vector(31 downto 0);                    -- writedata
@@ -975,7 +975,7 @@ architecture rtl of lms_ctr is
 	signal mm_interconnect_0_lms_ctr_gpio_s1_writedata                                 : std_logic_vector(31 downto 0); -- mm_interconnect_0:lms_ctr_gpio_s1_writedata -> lms_ctr_gpio:writedata
 	signal mm_interconnect_0_onchip_memory2_0_s1_chipselect                            : std_logic;                     -- mm_interconnect_0:onchip_memory2_0_s1_chipselect -> onchip_memory2_0:chipselect
 	signal mm_interconnect_0_onchip_memory2_0_s1_readdata                              : std_logic_vector(31 downto 0); -- onchip_memory2_0:readdata -> mm_interconnect_0:onchip_memory2_0_s1_readdata
-	signal mm_interconnect_0_onchip_memory2_0_s1_address                               : std_logic_vector(12 downto 0); -- mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
+	signal mm_interconnect_0_onchip_memory2_0_s1_address                               : std_logic_vector(13 downto 0); -- mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
 	signal mm_interconnect_0_onchip_memory2_0_s1_byteenable                            : std_logic_vector(3 downto 0);  -- mm_interconnect_0:onchip_memory2_0_s1_byteenable -> onchip_memory2_0:byteenable
 	signal mm_interconnect_0_onchip_memory2_0_s1_write                                 : std_logic;                     -- mm_interconnect_0:onchip_memory2_0_s1_write -> onchip_memory2_0:write
 	signal mm_interconnect_0_onchip_memory2_0_s1_writedata                             : std_logic_vector(31 downto 0); -- mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
@@ -1267,10 +1267,10 @@ begin
 			FLASH_SEQ_READ_DATA_COUNT           => 4,
 			FLASH_ADDR_ALIGNMENT_BITS           => 2,
 			FLASH_READ_CYCLE_MAX_INDEX          => 4,
-			FLASH_RESET_CYCLE_MAX_INDEX         => 10,
-			FLASH_BUSY_TIMEOUT_CYCLE_MAX_INDEX  => 48,
-			FLASH_ERASE_TIMEOUT_CYCLE_MAX_INDEX => 14000000,
-			FLASH_WRITE_TIMEOUT_CYCLE_MAX_INDEX => 12200,
+			FLASH_RESET_CYCLE_MAX_INDEX         => 12,
+			FLASH_BUSY_TIMEOUT_CYCLE_MAX_INDEX  => 60,
+			FLASH_ERASE_TIMEOUT_CYCLE_MAX_INDEX => 17500000,
+			FLASH_WRITE_TIMEOUT_CYCLE_MAX_INDEX => 15250,
 			PARALLEL_MODE                       => true,
 			READ_AND_WRITE_MODE                 => true,
 			WRAPPING_BURST_MODE                 => false,

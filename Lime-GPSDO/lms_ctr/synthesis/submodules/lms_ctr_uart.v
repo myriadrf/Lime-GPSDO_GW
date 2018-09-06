@@ -42,7 +42,7 @@ module lms_ctr_uart_tx (
   output           tx_ready;
   output           tx_shift_empty;
   output           txd;
-  input   [  8: 0] baud_divisor;
+  input   [ 12: 0] baud_divisor;
   input            begintransfer;
   input            clk;
   input            clk_en;
@@ -54,7 +54,7 @@ module lms_ctr_uart_tx (
 
 
 reg              baud_clk_en;
-reg     [  8: 0] baud_rate_counter;
+reg     [ 12: 0] baud_rate_counter;
 wire             baud_rate_counter_is_zero;
 reg              do_load_shifter;
 wire             do_shift;
@@ -206,7 +206,7 @@ module lms_ctr_uart_rx_stimulus_source (
 ;
 
   output           source_rxd;
-  input   [  8: 0] baud_divisor;
+  input   [ 12: 0] baud_divisor;
   input            clk;
   input            clk_en;
   input            reset_n;
@@ -312,7 +312,7 @@ module lms_ctr_uart_rx (
   output           rx_char_ready;
   output  [  7: 0] rx_data;
   output           rx_overrun;
-  input   [  8: 0] baud_divisor;
+  input   [ 12: 0] baud_divisor;
   input            begintransfer;
   input            clk;
   input            clk_en;
@@ -323,8 +323,8 @@ module lms_ctr_uart_rx (
 
 
 reg              baud_clk_en;
-wire    [  8: 0] baud_load_value;
-reg     [  8: 0] baud_rate_counter;
+wire    [ 12: 0] baud_load_value;
+reg     [ 12: 0] baud_rate_counter;
 wire             baud_rate_counter_is_zero;
 reg              break_detect;
 reg              delayed_unxrx_in_processxx3;
@@ -333,7 +333,7 @@ reg              delayed_unxsync_rxdxx2;
 reg              do_start_rx;
 reg              framing_error;
 wire             got_new_char;
-wire    [  7: 0] half_bit_cell_divisor;
+wire    [ 11: 0] half_bit_cell_divisor;
 wire             is_break;
 wire             is_framing_error;
 wire             parity_error;
@@ -398,7 +398,7 @@ reg     [  9: 0] unxshiftxrxd_shift_regxshift_reg_start_bit_nxx6_out;
 
   assign rxd_edge = (sync_rxd) ^  (delayed_unxsync_rxdxx2);
   assign rx_rd_strobe_onset = rx_rd_strobe && begintransfer;
-  assign half_bit_cell_divisor = baud_divisor[8 : 1];
+  assign half_bit_cell_divisor = baud_divisor[12 : 1];
   assign baud_load_value = (rxd_edge)? half_bit_cell_divisor :
     baud_divisor;
 
@@ -578,7 +578,7 @@ module lms_ctr_uart_regs (
                          )
 ;
 
-  output  [  8: 0] baud_divisor;
+  output  [ 12: 0] baud_divisor;
   output           dataavailable;
   output           do_force_break;
   output           irq;
@@ -608,7 +608,7 @@ module lms_ctr_uart_regs (
 
 
 wire             any_error;
-wire    [  8: 0] baud_divisor;
+wire    [ 12: 0] baud_divisor;
 reg     [  9: 0] control_reg;
 wire             control_wr_strobe;
 wire             cts_status_bit;
@@ -617,7 +617,7 @@ reg              d1_tx_ready;
 wire             dataavailable;
 wire             dcts_status_bit;
 reg              delayed_unxtx_readyxx4;
-wire    [  8: 0] divisor_constant;
+wire    [ 12: 0] divisor_constant;
 wire             do_force_break;
 wire             do_write_char;
 wire             eop_status_bit;
@@ -776,7 +776,7 @@ ie_parity_error} = control_reg;
 
 //synthesis translate_on
 //synthesis read_comments_as_HDL on
-//  assign divisor_constant = 347;
+//  assign divisor_constant = 5208;
 //synthesis read_comments_as_HDL off
 
 endmodule
@@ -827,7 +827,7 @@ module lms_ctr_uart (
   input   [ 15: 0] writedata;
 
 
-wire    [  8: 0] baud_divisor;
+wire    [ 12: 0] baud_divisor;
 wire             break_detect;
 wire             clk_en;
 wire             dataavailable;

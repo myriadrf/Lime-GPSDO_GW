@@ -27,7 +27,7 @@
 //4         reserved
 //5         slave-enable  r/w
 //6         end-of-packet-value r/w
-//INPUT_CLOCK: 40000000
+//INPUT_CLOCK: 50000000
 //ISMASTER: 1
 //DATABITS: 8
 //TARGETCLOCK: 10000000
@@ -256,8 +256,8 @@ wire             write_tx_holding;
     end
 
 
-  // slowclock is active once every 2 system clock pulses.
-  assign slowclock = slowcount == 2'h1;
+  // slowclock is active once every 3 system clock pulses.
+  assign slowclock = slowcount == 2'h2;
 
   assign p1_slowcount = ({2 {(transmitting && !slowclock)}} & (slowcount + 1)) |
     ({2 {(~((transmitting && !slowclock)))}} & 0);
