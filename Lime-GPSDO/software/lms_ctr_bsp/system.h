@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Sep 04 17:17:03 EEST 2018
+ * Generated: Thu Sep 06 10:06:32 EEST 2018
  */
 
 /*
@@ -118,7 +118,7 @@
 #define ALT_CPU_INST_ADDR_WIDTH 0x16
 #define ALT_CPU_NAME "nios2_cpu"
 #define ALT_CPU_OCI_VERSION 1
-#define ALT_CPU_RESET_ADDR 0x00100000
+#define ALT_CPU_RESET_ADDR 0x00208000
 
 
 /*
@@ -153,7 +153,7 @@
 #define NIOS2_ICACHE_SIZE 0
 #define NIOS2_INST_ADDR_WIDTH 0x16
 #define NIOS2_OCI_VERSION 1
-#define NIOS2_RESET_ADDR 0x00100000
+#define NIOS2_RESET_ADDR 0x00208000
 
 
 /*
@@ -475,7 +475,7 @@
 #define ONCHIP_MEMORY2_0_DUAL_PORT 0
 #define ONCHIP_MEMORY2_0_GUI_RAM_BLOCK_TYPE "AUTO"
 #define ONCHIP_MEMORY2_0_INIT_CONTENTS_FILE "lms_ctr_onchip_memory2_0"
-#define ONCHIP_MEMORY2_0_INIT_MEM_CONTENT 0
+#define ONCHIP_MEMORY2_0_INIT_MEM_CONTENT 1
 #define ONCHIP_MEMORY2_0_INSTANCE_ID "NONE"
 #define ONCHIP_MEMORY2_0_IRQ -1
 #define ONCHIP_MEMORY2_0_IRQ_INTERRUPT_CONTROLLER_ID -1
@@ -530,7 +530,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1536069767
+#define SYSID_QSYS_0_TIMESTAMP 1536217004
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 

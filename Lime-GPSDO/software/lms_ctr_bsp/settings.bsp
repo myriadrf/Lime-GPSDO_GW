@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Sep 4, 2018 5:17:21 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1536070641966</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Sep 6, 2018 10:17:22 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1536218242719</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>H:\working_dir\altera\Lime-GPSDO\Lime-GPSDO\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
@@ -62,7 +62,7 @@
                 <SettingName>hal.linker.allow_code_at_reset</SettingName>
                 <Identifier>ALT_ALLOW_CODE_AT_RESET</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Indicates if initialization code is allowed at the reset address. If true, defines the macro ALT_ALLOW_CODE_AT_RESET in linker.h.</Description>

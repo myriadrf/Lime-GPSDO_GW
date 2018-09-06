@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Sep 04 17:17:03 EEST 2018
+ * Generated: Thu Sep 06 10:06:32 EEST 2018
  */
 
 /*
@@ -50,9 +50,8 @@
 
 MEMORY
 {
-    reset : ORIGIN = 0x100000, LENGTH = 32
-    onchip_flash_0_data : ORIGIN = 0x100020, LENGTH = 573408
-    onchip_memory2_0_BEFORE_EXCEPTION : ORIGIN = 0x208000, LENGTH = 32
+    onchip_flash_0_data : ORIGIN = 0x100000, LENGTH = 573440
+    reset : ORIGIN = 0x208000, LENGTH = 32
     onchip_memory2_0 : ORIGIN = 0x208020, LENGTH = 32736
 }
 

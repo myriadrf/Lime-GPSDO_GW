@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Sep 04 17:17:03 EEST 2018
+ * Generated: Thu Sep 06 10:17:23 EEST 2018
  */
 
 /*
@@ -65,13 +65,11 @@
  *
  */
 
-#define ONCHIP_FLASH_0_DATA_REGION_BASE 0x100020
-#define ONCHIP_FLASH_0_DATA_REGION_SPAN 573408
-#define ONCHIP_MEMORY2_0_BEFORE_EXCEPTION_REGION_BASE 0x208000
-#define ONCHIP_MEMORY2_0_BEFORE_EXCEPTION_REGION_SPAN 32
+#define ONCHIP_FLASH_0_DATA_REGION_BASE 0x100000
+#define ONCHIP_FLASH_0_DATA_REGION_SPAN 573440
 #define ONCHIP_MEMORY2_0_REGION_BASE 0x208020
 #define ONCHIP_MEMORY2_0_REGION_SPAN 32736
-#define RESET_REGION_BASE 0x100000
+#define RESET_REGION_BASE 0x208000
 #define RESET_REGION_SPAN 32
 
 
@@ -81,9 +79,17 @@
  */
 
 #define ALT_EXCEPTIONS_DEVICE ONCHIP_MEMORY2_0
-#define ALT_RESET_DEVICE ONCHIP_FLASH_0_DATA
+#define ALT_RESET_DEVICE ONCHIP_MEMORY2_0
 #define ALT_RODATA_DEVICE ONCHIP_MEMORY2_0
 #define ALT_RWDATA_DEVICE ONCHIP_MEMORY2_0
 #define ALT_TEXT_DEVICE ONCHIP_MEMORY2_0
+
+
+/*
+ * Initialization code at the reset address is allowed (e.g. no external bootloader).
+ *
+ */
+
+#define ALT_ALLOW_CODE_AT_RESET
 
 #endif /* __LINKER_H_ */
