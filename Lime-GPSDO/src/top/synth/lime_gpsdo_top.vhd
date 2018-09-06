@@ -38,8 +38,7 @@ entity lime_gpsdo_top is
       -- External communication interfaces
          -- FPGA_SPI1
       FPGA_SPI1_SCLK    : out    std_logic;
-      FPGA_SPI1_MOSI    : out    std_logic;
-      FPGA_SPI1_MISO    : in     std_logic;      
+      FPGA_SPI1_MOSI    : out    std_logic;    
       FPGA_SPI1_DAC_SS  : out    std_logic;
          -- FPGA_SPI2
       FPGA_SPI2_SCLK    : out    std_logic;
@@ -61,7 +60,9 @@ entity lime_gpsdo_top is
       FPGA_LED3_G       : out    std_logic := '1';
       FPGA_LED3_R       : out    std_logic := '1';      
          -- Button
-      FPGA_BTN          : in     std_logic
+      FPGA_BTN          : in     std_logic;
+         -- Time pulse
+      FPGA_TPULSE       : out    std_logic
    );
 end lime_gpsdo_top;
 
@@ -85,6 +86,7 @@ signal inst1_avm_m0_write        : std_logic;
 signal inst1_avm_m0_writedata    : std_logic_vector(7 downto 0);
 signal inst1_avm_m0_clk_clk      : std_logic;
 signal inst1_avm_m0_reset_reset  : std_logic;
+signal inst1_uart_txd            : std_logic;
 
 --inst2
 signal inst2_sdout               : std_logic;
@@ -93,6 +95,9 @@ signal inst2_mm_rd_data          : std_logic_vector(7 downto 0);
 signal inst2_mm_rd_datav         : std_logic;
 signal inst2_mm_wait_req         : std_logic;
 signal inst2_mm_irq              : std_logic;
+signal inst2_uart_tx             : std_logic;
+signal inst2_fpga_led_g          : std_logic;
+signal inst2_fpga_led_r          : std_logic;
 
 begin
 
@@ -114,7 +119,7 @@ begin
 -- ----------------------------------------------------------------------------
 -- NIOS CPU instance
 -- ----------------------------------------------------------------------------
-   inst0_fpga_spi_MISO <= FPGA_SPI1_MISO;
+   inst0_fpga_spi_MISO <= inst2_sdout;
 
    inst1_nios_cpu : entity work.nios_cpu
    port map(
@@ -135,7 +140,7 @@ begin
       dac_spi_SS_n         => FPGA_SPI1_DAC_SS,
       switch               => (others=>'1'),
       uart_rxd             => '1',
-      uart_txd             => open,
+      uart_txd             => inst1_uart_txd,
       i2c_scl              => FPGA_I2C_SCL,
       i2c_sda              => FPGA_I2C_SDA,
       flash_spi_MISO       => FPGA_SPI2_MISO,
@@ -159,7 +164,8 @@ begin
    inst2_limegnss_gpio_top : entity work.limegnss_gpio_top
    generic map( 
       UART_BAUD_RATE          => 9600,
-      VCTCXO_CLOCK_FREQUENCY  => 30720000
+      VCTCXO_CLOCK_FREQUENCY  => 30720000,
+      MM_CLOCK_FREQUENCY      => 50000000
    )
    port map(
       areset_n          => reset_n,
@@ -178,12 +184,12 @@ begin
       mreset            => reset_n,    -- Memory reset signal, resets configuration memory only (use only one reset)
       vctcxo_clk        => CLK0_OUT,   -- Clock from VCTCXO       
       --LimeGNSS-GPIO pins
-      gnss_tx           => open,          -- GPIO0
-      gnss_rx           => GNSS_UART_TX,  -- GPIO1
-      gnss_tpulse       => GNSS_TPULSE,   -- GPIO2
-      gnss_fix          => '0',           -- GPIO3
-      fpga_led_g        => FPGA_LED3_G,   -- GPIO4 
-      fpga_led_r        => FPGA_LED3_R,   -- GPIO5  
+      gnss_tx           => open,   
+      gnss_rx           => GNSS_UART_TX,  
+      gnss_tpulse       => GNSS_TPULSE,   
+      gnss_fix          => '0',           
+      fpga_led_g        => inst2_fpga_led_g,
+      fpga_led_r        => inst2_fpga_led_r, 
       -- NIOS PIO
       en                => inst2_en,     
       -- NIOs  Avalon-MM Interface (External master)
@@ -197,7 +203,12 @@ begin
       mm_rd_datav       => inst2_mm_rd_datav,
       mm_wait_req       => inst2_mm_wait_req,
       -- Avalon Interrupts
-      mm_irq            => inst2_mm_irq
+      mm_irq            => inst2_mm_irq,
+      
+      -- Testing (UART logger)
+      fan_ctrl_in       => '0',
+      uart_tx           => inst2_uart_tx
+      
    );   
 -- ----------------------------------------------------------------------------
 -- Output ports
@@ -205,14 +216,21 @@ begin
    FPGA_SPI1_MOSI    <= inst0_fpga_spi_MOSI;
    FPGA_SPI1_SCLK    <= inst0_fpga_spi_SCLK;
 
-   FPGA_LED1_G       <= inst0_beat;
-   FPGA_LED1_R       <= '1';
-   FPGA_LED2_G       <= GNSS_TPULSE;
+   FPGA_LED1_G       <= not inst2_fpga_led_g;
+   FPGA_LED1_R       <= not inst2_fpga_led_r;
+   FPGA_LED2_G       <= '1';
    FPGA_LED2_R       <= '1';
+   FPGA_LED3_G       <= '1';
+   FPGA_LED3_R       <= '1';
    
    
-   CP_RXD            <= GNSS_UART_TX;
-   GNSS_UART_RX      <= CP_TXD;
+   
+   CP_RXD            <= GNSS_UART_TX   when FPGA_SW(0) = '0' else  
+                        inst1_uart_txd when FPGA_SW(1) = '0' else inst2_uart_tx;                 
+                                               
+   GNSS_UART_RX      <= CP_TXD         when FPGA_SW(0) = '0' else '1';
+   
+   FPGA_TPULSE       <= GNSS_TPULSE;
    
    
 end arch;   
