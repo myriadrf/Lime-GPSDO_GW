@@ -6,14 +6,14 @@ EXEC_P, HAS_SYMS, D_PAGED
 start address 0x00208230
 
 Program Header:
-    LOAD off    0x00001000 vaddr 0x00100000 paddr 0x00100000 align 2**12
-         filesz 0x00000000 memsz 0x00000000 flags r-x
+    LOAD off    0x00001000 vaddr 0x00208000 paddr 0x00208000 align 2**12
+         filesz 0x00000020 memsz 0x00000020 flags r-x
     LOAD off    0x00001020 vaddr 0x00208020 paddr 0x00208020 align 2**12
          filesz 0x0000752c memsz 0x00007814 flags rwx
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .entry        00000000  00100000  00100000  00001000  2**5
+  0 .entry        00000020  00208000  00208000  00001000  2**5
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .exceptions   00000210  00208020  00208020  00001020  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
@@ -25,62 +25,62 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA, SMALL_DATA
   5 .bss          000002e8  0020f54c  0020f54c  0000854c  2**2
                   ALLOC, SMALL_DATA
-  6 .onchip_flash_0_data 00000000  00100020  00100020  0000854c  2**0
+  6 .onchip_flash_0_data 00000000  00100000  00100000  0000854c  2**0
                   CONTENTS
   7 .onchip_memory2_0 00000000  0020f834  0020f834  0000854c  2**0
                   CONTENTS
   8 .comment      00000023  00000000  00000000  0000854c  2**0
                   CONTENTS, READONLY
-  9 .debug_aranges 00000350  00000000  00000000  00008570  2**3
+  9 .debug_aranges 00000358  00000000  00000000  00008570  2**3
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_info   00004ef6  00000000  00000000  000088c0  2**0
+ 10 .debug_info   00004ef2  00000000  00000000  000088c8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 000017fe  00000000  00000000  0000d7b6  2**0
+ 11 .debug_abbrev 000017fc  00000000  00000000  0000d7ba  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00002316  00000000  00000000  0000efb4  2**0
+ 12 .debug_line   00002328  00000000  00000000  0000efb6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_frame  000007dc  00000000  00000000  000112cc  2**2
+ 13 .debug_frame  000007dc  00000000  00000000  000112e0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00002277  00000000  00000000  00011aa8  2**0
+ 14 .debug_str    00002277  00000000  00000000  00011abc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_loc    000021a7  00000000  00000000  00013d1f  2**0
+ 15 .debug_loc    000021a7  00000000  00000000  00013d33  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_alt_sim_info 00000040  00000000  00000000  00015ec8  2**2
+ 16 .debug_alt_sim_info 00000040  00000000  00000000  00015edc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_ranges 00000308  00000000  00000000  00015f08  2**3
+ 17 .debug_ranges 00000328  00000000  00000000  00015f20  2**3
                   CONTENTS, READONLY, DEBUGGING
- 18 .thread_model 00000003  00000000  00000000  0001857c  2**0
+ 18 .thread_model 00000003  00000000  00000000  000185b4  2**0
                   CONTENTS, READONLY
- 19 .cpu          00000009  00000000  00000000  0001857f  2**0
+ 19 .cpu          00000009  00000000  00000000  000185b7  2**0
                   CONTENTS, READONLY
- 20 .qsys         00000001  00000000  00000000  00018588  2**0
+ 20 .qsys         00000001  00000000  00000000  000185c0  2**0
                   CONTENTS, READONLY
- 21 .simulation_enabled 00000001  00000000  00000000  00018589  2**0
+ 21 .simulation_enabled 00000001  00000000  00000000  000185c1  2**0
                   CONTENTS, READONLY
- 22 .sysid_hash   00000004  00000000  00000000  0001858a  2**0
+ 22 .sysid_hash   00000004  00000000  00000000  000185c2  2**0
                   CONTENTS, READONLY
- 23 .sysid_base   00000004  00000000  00000000  0001858e  2**0
+ 23 .sysid_base   00000004  00000000  00000000  000185c6  2**0
                   CONTENTS, READONLY
- 24 .sysid_time   00000004  00000000  00000000  00018592  2**0
+ 24 .sysid_time   00000004  00000000  00000000  000185ca  2**0
                   CONTENTS, READONLY
- 25 .stderr_dev   00000004  00000000  00000000  00018596  2**0
+ 25 .stderr_dev   00000004  00000000  00000000  000185ce  2**0
                   CONTENTS, READONLY
- 26 .stdin_dev    00000004  00000000  00000000  0001859a  2**0
+ 26 .stdin_dev    00000004  00000000  00000000  000185d2  2**0
                   CONTENTS, READONLY
- 27 .stdout_dev   00000004  00000000  00000000  0001859e  2**0
+ 27 .stdout_dev   00000004  00000000  00000000  000185d6  2**0
                   CONTENTS, READONLY
- 28 .sopc_system_name 00000007  00000000  00000000  000185a2  2**0
+ 28 .sopc_system_name 00000007  00000000  00000000  000185da  2**0
                   CONTENTS, READONLY
- 29 .sopcinfo     0008553c  00000000  00000000  000185a9  2**0
+ 29 .sopcinfo     0008548a  00000000  00000000  000185e1  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
-00100000 l    d  .entry	00000000 .entry
+00208000 l    d  .entry	00000000 .entry
 00208020 l    d  .exceptions	00000000 .exceptions
 00208230 l    d  .text	00000000 .text
 0020ec34 l    d  .rodata	00000000 .rodata
 0020ed6c l    d  .rwdata	00000000 .rwdata
 0020f54c l    d  .bss	00000000 .bss
-00100020 l    d  .onchip_flash_0_data	00000000 .onchip_flash_0_data
+00100000 l    d  .onchip_flash_0_data	00000000 .onchip_flash_0_data
 0020f834 l    d  .onchip_memory2_0	00000000 .onchip_memory2_0
 00000000 l    d  .comment	00000000 .comment
 00000000 l    d  .debug_aranges	00000000 .debug_aranges
@@ -172,7 +172,7 @@ SYMBOL TABLE:
 0020f578 g     O .bss	00000002 dac_data
 0020be98 g     F .text	00000070 .hidden __fixsfsi
 0020e6b8 g     F .text	00000024 altera_nios2_gen2_irq_init
-00100000 g     F .entry	00000000 __reset
+00208000 g     F .entry	0000000c __reset
 0020f55c g     O .bss	00000004 address
 0020f5b0 g     O .bss	00000004 errno
 0020f5a0 g     O .bss	00000004 alt_argv
@@ -321,6 +321,14 @@ SYMBOL TABLE:
 0020f6f4 g     O .bss	00000040 glEp0Buffer_Rx
 
 
+
+Disassembly of section .entry:
+
+00208000 <__reset>:
+  208000:	00400834 	movhi	at,32
+  208004:	08608c14 	ori	at,at,33328
+  208008:	0800683a 	jmp	at
+	...
 
 Disassembly of section .exceptions:
 
