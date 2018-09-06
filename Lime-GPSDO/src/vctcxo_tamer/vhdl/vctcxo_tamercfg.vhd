@@ -177,14 +177,14 @@ begin
    begin
       -- Defaults
       if mreset = '0' then	
-         mem(0)   <= "0000000000000000"; --  0 free, EN
+         mem(0)   <= "0000000000000001"; --  0 free, EN
          mem(1)   <= "0000000000000000"; --  0 free, ACCURACY[3:0], STATE[3:0]
          mem(2)   <= "0000000000000000"; --  0 free, DAC_TUNED_VAL[15:0]
-         mem(3)   <= "0000000000000011"; --  0 free, PPS_1S_ERR_TOL_L[15:0]=3
+         mem(3)   <= "0000000000000001"; --  0 free, PPS_1S_ERR_TOL_L[15:0]=1
          mem(4)   <= "0000000000000000"; --  0 free, PPS_1S_ERR_TOL_H[15:0]
-         mem(5)   <= "0000000000100010"; --  0 free, PPS_10S_ERR_TOL_L[15:0]=34
+         mem(5)   <= "0000000000000011"; --  0 free, PPS_10S_ERR_TOL_L[15:0]=3
          mem(6)   <= "0000000000000000"; --  0 free, PPS_10S_ERR_TOL_H[15:0]
-         mem(7)   <= "0000000101100100"; --  0 free, PPS_100S_ERR_TOL_L[15:0]=356
+         mem(7)   <= "0000000000011111"; --  0 free, PPS_100S_ERR_TOL_L[15:0]=31
          mem(8)   <= "0000000000000000"; --  0 free, PPS_100S_ERR_TOL_H[15:0]
          mem(9)   <= "0000000000000000"; --  0 free, PPS_1S_ERR_L[15:0]
          mem(10)  <= "0000000000000000"; --  0 free, PPS_1S_ERR_H[15:0]
