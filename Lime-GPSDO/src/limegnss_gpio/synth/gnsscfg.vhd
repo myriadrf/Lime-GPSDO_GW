@@ -263,7 +263,7 @@ gprmc_date_dd       <= gprmc_date(23 downto 16);
    begin
       -- Defaults
       if mreset = '0' then	
-         mem(0)   <= "0000000000000000"; --  0 free, EN
+         mem(0)   <= "0000000000000001"; --  0 free, EN
          mem(1)   <= "0000000000000000"; --  0 free, Reserved[3:0], GPRMC_UTC_SSS0[11:0]
          mem(2)   <= "0000000000000000"; --  0 free, GPRMC_UTC_MM[7:0],GPRMC_UTC_SS1[7:0]
          mem(3)   <= "0000000000000011"; --  0 free, Reserved[3:0],GPRMC_UTC_HH[7:0]
