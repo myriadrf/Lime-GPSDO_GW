@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
 # SOPC Builder design path: ../../lms_ctr.sopcinfo
 #
-# Generated: Tue Sep 04 17:17:03 EEST 2018
+# Generated: Thu Sep 06 13:19:18 EEST 2018
 
 # DO NOT MODIFY THIS FILE
 #
@@ -50,4 +50,4 @@
 memory 0x100000 0x18c000 cache
 
 # onchip_memory2_0
-memory 0x208000 0x210000 cache
+memory 0x210000 0x21c000 cache

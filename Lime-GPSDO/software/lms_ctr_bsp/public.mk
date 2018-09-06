@@ -152,14 +152,14 @@ SOPC_SYSID_FLAG += --id=4920
 ELF_PATCH_FLAG  += --id 4920
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x211228
-SOPC_SYSID_FLAG += --sidp=0x211228
-ELF_PATCH_FLAG  += --sidp 0x211228
+# setting SOPC_SYSID_BASE_ADDRESS is 0x221228
+SOPC_SYSID_FLAG += --sidp=0x221228
+ELF_PATCH_FLAG  += --sidp 0x221228
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1536217004
-SOPC_SYSID_FLAG += --timestamp=1536217004
-ELF_PATCH_FLAG  += --timestamp 1536217004
+# setting SOPC_TIMESTAMP is 1536231065
+SOPC_SYSID_FLAG += --timestamp=1536231065
+ELF_PATCH_FLAG  += --timestamp 1536231065
 
 # Enable driver ioctl() support. This feature is not compatible with the 
 # 'small' driver; ioctl() support will not be compiled if either the UART 
@@ -224,7 +224,8 @@ ALT_CPPFLAGS += -DALT_NO_INSTRUCTION_EMULATION
 # access routines) to fail. You can define a symbol provided by each driver to 
 # prevent it from being removed. If true, adds -DALT_USE_SMALL_DRIVERS to 
 # ALT_CPPFLAGS in public.mk. none 
-# setting hal.enable_reduced_device_drivers is false
+# setting hal.enable_reduced_device_drivers is true
+ALT_CPPFLAGS += -DALT_USE_SMALL_DRIVERS
 
 # Turns on HAL runtime stack checking feature. Enabling this setting causes 
 # additional code to be placed into each subroutine call to generate an 
@@ -245,7 +246,9 @@ ALT_CPPFLAGS += -DALT_NO_INSTRUCTION_EMULATION
 # are removed such as floating-point support in printf(), stdin input routines, 
 # and buffered I/O. The small C library is not compatible with Micrium 
 # MicroC/OS-II. If true, adds -msmallc to ALT_LDFLAGS in public.mk. none 
-# setting hal.enable_small_c_library is false
+# setting hal.enable_small_c_library is true
+ALT_LDFLAGS += -msmallc
+ALT_CPPFLAGS += -DSMALL_C_LIB
 
 # Enable SOPC Builder System ID. If a System ID SOPC Builder component is 
 # connected to the CPU associated with this BSP, it will be enabled in the 
@@ -346,18 +349,18 @@ ALT_CFLAGS += -mgpopt=global
 
 # Slave descriptor of STDERR character-mode device. This setting is used by the 
 # ALT_STDERR family of defines in system.h. none 
-# setting hal.stderr is none
-ELF_PATCH_FLAG  += --stderr_dev none
+# setting hal.stderr is uart
+ELF_PATCH_FLAG  += --stderr_dev uart
 
 # Slave descriptor of STDIN character-mode device. This setting is used by the 
 # ALT_STDIN family of defines in system.h. none 
-# setting hal.stdin is none
-ELF_PATCH_FLAG  += --stdin_dev none
+# setting hal.stdin is uart
+ELF_PATCH_FLAG  += --stdin_dev uart
 
 # Slave descriptor of STDOUT character-mode device. This setting is used by the 
 # ALT_STDOUT family of defines in system.h. none 
-# setting hal.stdout is none
-ELF_PATCH_FLAG  += --stdout_dev none
+# setting hal.stdout is uart
+ELF_PATCH_FLAG  += --stdout_dev uart
 
 
 #------------------------------------------------------------------------------
