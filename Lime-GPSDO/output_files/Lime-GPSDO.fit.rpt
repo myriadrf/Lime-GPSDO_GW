@@ -1,5 +1,5 @@
 Fitter report for Lime-GPSDO
-Fri Sep 07 13:04:50 2018
+Fri Sep 07 13:24:59 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -72,7 +72,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Fri Sep 07 13:04:50 2018       ;
+; Fitter Status                      ; Successful - Fri Sep 07 13:24:59 2018       ;
 ; Quartus Prime Version              ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
 ; Revision Name                      ; Lime-GPSDO                                  ;
 ; Top-level Entity Name              ; lime_gpsdo_top                              ;
@@ -164,9 +164,9 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  14.7%      ;
+;     Processor 2            ;  15.1%      ;
 ;     Processor 3            ;  12.2%      ;
-;     Processor 4            ;  11.9%      ;
+;     Processor 4            ;  11.7%      ;
 +----------------------------+-------------+
 
 
@@ -4976,14 +4976,14 @@ Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:03
 Info (170191): Fitter placement operations beginning
 Info (170137): Fitter placement was successful
-Info (170192): Fitter placement operations ending: elapsed time is 00:00:21
+Info (170192): Fitter placement operations ending: elapsed time is 00:00:22
 Info (170193): Fitter routing operations beginning
 Info (170195): Router estimated average interconnect usage is 14% of the available device resources
     Info (170196): Router estimated peak interconnect usage is 25% of the available device resources in the region that extends from location X38_Y0 to location X50_Y9
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
-Info (170194): Fitter routing operations ending: elapsed time is 00:00:14
-Info (11888): Total time spent on timing analysis during the Fitter is 13.64 seconds.
+Info (170194): Fitter routing operations ending: elapsed time is 00:00:15
+Info (11888): Total time spent on timing analysis during the Fitter is 14.19 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -5056,9 +5056,9 @@ Warning (169064): Following 12 pins have no output enable or a GND or VCC output
 Info (144001): Generated suppressed messages file H:/working_dir/altera/Lime-GPSDO/Lime-GPSDO/output_files/Lime-GPSDO.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 23 warnings
     Info: Peak virtual memory: 5833 megabytes
-    Info: Processing ended: Fri Sep 07 13:04:53 2018
-    Info: Elapsed time: 00:01:07
-    Info: Total CPU time (on all processors): 00:02:05
+    Info: Processing ended: Fri Sep 07 13:25:02 2018
+    Info: Elapsed time: 00:01:14
+    Info: Total CPU time (on all processors): 00:02:07
 
 
 +----------------------------+
