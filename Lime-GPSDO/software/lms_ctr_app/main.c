@@ -8,11 +8,10 @@
 
 #include "io.h"
 #include "system.h"
-//#include "unistd.h"
+#include "unistd.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
-//#include <string.h>
 #include <altera_avalon_spi.h>
 #include "alt_types.h"
 #include "math.h"
@@ -28,11 +27,7 @@
 #define cbi(p,n) ((p) &= ~(1 << (n)))
 
 //get info
-//#define FW_VER				1 //Initial version
-//#define FW_VER				2 //FLASH programming added
-//#define FW_VER				3 //Temperature and Si5351C control added
-//#define FW_VER				4 //LM75 configured to control fan; I2C speed increased up to 400kHz; ADF/DAC control implementation.
-#define FW_VER				5 //EEPROM and FLASH R/W funtionality added
+#define FW_VER			1 //Initial version
 
 #define SPI_NR_LMS7002M 0
 #define SPI_NR_FPGA     1
@@ -177,32 +172,6 @@ void testEEPROM(void)
 	converted_val = I2C_read(I2C_OPENCORES_0_BASE, 1);
 }
 
-/*
-void testFlash(void)
-{
-	uint16_t cnt = 0, page = 0;
-	uint8_t spirez;
-
-
-	spirez = FlashSpiEraseSector(SPI_FPGA_AS_BASE, SPI_NR_FLASH, CyTrue, 0);
-
-	for(page = 0; page < 10; page++)
-	{
-		for(cnt = 0; cnt < 256; cnt++)
-		{
-			flash_page_data[cnt] = cnt+page;
-		}
-		spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, page, FLASH_PAGE_SIZE, flash_page_data, 0);
-	}
-
-	for(page = 0; page < 10; page++)
-	{
-		spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, page, FLASH_PAGE_SIZE, flash_page_data, 1);
-	}
-
-}
-*/
-
 
 void boot_from_flash(void)
 {
@@ -257,17 +226,11 @@ void Control_TCXO_DAC (unsigned char oe, uint16_t *data) //controls DAC (AD5601)
 int main()
 {
     uint32_t* dest = (uint32_t*)glEp0Buffer_Tx;
-    unsigned char led_pattern = 0x00;
-    //volatile uint32_t *uart = (volatile uint32_t*) UART_BASE;
-    //char *str = "Hello from NIOS II\r\n";
 
     volatile int spirez;
-    char cnt = 0;
     int k;
 
     printf("------ Lime-GPSDO v1.0; GW v1.0; ------\r\n");
-
-    uint8_t status = 0;
 
     uint8_t vctcxo_tamer_irq = 0;
     uint8_t vctcxo_tamer_en=0,	vctcxo_tamer_en_old = 0;
@@ -296,117 +259,15 @@ int main()
     IOWR(LMS_CTR_GPIO_BASE, 0, 0x06);
     IOWR(LMS_CTR_GPIO_BASE, 0, 0x07);
 
-    //
-    uint8_t spi_wrbuf1[2] = {0x00, 0x20};
-    uint8_t spi_wrbuf2[6] = {0x80, 0x20, 0xFF, 0xFD, 0x00, 0x20};
-    //uint8_t spi_rdbuf[2] = {0x01, 0x00};
-
     // Write initial data to the DAC
 	dac_val = 30714; //default DAC value
 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
-
-//	dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
-//	dac_data[1] = (dac_val) <<6; //LSB data
-//	spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
-
-    //FLASH MEMORY
-    //spi_wrbuf1[0] = FLASH_CMD_READJEDECID;	//
-    //spirez = alt_avalon_spi_command(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 1, spi_wrbuf1, 3, spi_wrbuf2, 0);
-
-	//flash_page_data[FLASH_PAGE_SIZE];
-    //testFlash();
-    /*
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0000, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0001, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0002, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0003, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0004, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0005, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0006, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0007, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0008, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0009, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x000A, FLASH_PAGE_SIZE, flash_page_data, 1);
-	//spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0010, 10, flash_page_data, 1);
-	*/
 
     // I2C initialiazation
     I2C_init(I2C_OPENCORES_0_BASE, ALT_CPU_FREQ, 100000);
 
     // Configure LM75
     Configure_LM75();
-
-
- /*
-    // LM75
-	spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 0);
-	spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 1);				// Pointer = temperature register
-	spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 1);
-
-	converted_val = (signed short int)I2C_read(I2C_OPENCORES_0_BASE, 0);
-	//converted_val = 0xE7 << 8;	// Test -25 deg
-	converted_val = 10 * (converted_val >> 8);
-	spirez = I2C_read(I2C_OPENCORES_0_BASE, 1);
-
-	if(spirez & 0x80) converted_val = converted_val + 5;
-*/
-
-
-/*
-    while (1)	// infinite loop
-    {
-        led_pattern = IORD(SWITCH_BASE, 0);     // gets LEDs
-        set_led(led_pattern<<3);                     // sets LEDs
-
-
-        // SPI
-        //spirez = alt_avalon_spi_command(SPI_LMS_BASE, 0, 2, spi_wrbuf1, 2, spi_rdbuf, 0);
-        //spirez = alt_avalon_spi_command(SPI_LMS_BASE, 0, 6, spi_wrbuf2, 2, spi_rdbuf, 0);
-        //spirez = alt_avalon_spi_command(SPI_LMS_BASE, 0, 2, spi_wrbuf1, 2, spi_rdbuf, 0);
-
-        //FLASH MEMORY
-        //spi_wrbuf1[0] = ReverseBitOrder(0x9F);	//
-        //spirez = alt_avalon_spi_command(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 1, spi_wrbuf1, 3, spi_wrbuf2, 0);
-        //spi_wrbuf2[0] = ReverseBitOrder(spi_wrbuf2[0]);
-        //spi_wrbuf2[1] = ReverseBitOrder(spi_wrbuf2[1]);
-        //spi_wrbuf2[2] = ReverseBitOrder(spi_wrbuf2[2]);
-
-
-
-		spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 0);
-		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 1);				// Pointer = temperature register
-		spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 1);
-
-		// Read temperature and recalculate
-		converted_val = (signed short int)I2C_read(I2C_OPENCORES_0_BASE, 0);
-		converted_val = converted_val << 8;
-		converted_val = 10 * (converted_val >> 8);
-		spirez = I2C_read(I2C_OPENCORES_0_BASE, 1);
-		if(spirez & 0x80) converted_val = converted_val + 5;
-
-
-		//Read from LMS7
-		spi_wrbuf1[0] = 0x00;
-		spi_wrbuf1[1] = 0x21;
-		spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 2, spi_wrbuf1, 2, spi_wrbuf2, 0);
-
-		// Write to the DAC
-		//dac_val = 10;
-		//dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
-		//dac_data[1] = (dac_val) <<6; //LSB data
-		//spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
-
-		//dac_val = 200;
-		//dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
-		//dac_data[1] = (dac_val) <<6; //LSB data
-		//spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
-
-		//EEPROM Test, RD from 0x0000
-		testEEPROM();
-
-    }
-*/
-
 
     while (1)	// infinite loop
     {
@@ -577,8 +438,6 @@ int main()
 
 
         // FIFO
-        //IOWR(AV_FIFO_INT_0_BASE, 0, cnt);		// Write Data to FIFO
-        //cnt++;
         spirez = IORD(AV_FIFO_INT_0_BASE, 2);	// Read FIFO Status
         if(!(spirez & 0x01))
         {
@@ -842,9 +701,7 @@ int main()
 							flash_page |= LMS_Ctrl_Packet_Rx->Data_field[7] << 16;
 							flash_page |= LMS_Ctrl_Packet_Rx->Data_field[8] << 8;
 							flash_page |= LMS_Ctrl_Packet_Rx->Data_field[9];
-							//flash_page = flash_page / FLASH_PAGE_SIZE;
 
-							//if( FlashSpiTransfer(FLASH_SPI_BASE, SPI_NR_FLASH, flash_page, FLASH_PAGE_SIZE, flash_page_data, CyTrue) != CY_U3P_SUCCESS)  cmd_errors++;//write to flash
 							if( FlashSpiRead(FLASH_SPI_BASE, SPI_NR_FLASH, flash_page, FLASH_PAGE_SIZE, flash_page_data) != CY_U3P_SUCCESS)  cmd_errors++;//write to flash
 
 							for(k=0; k<data_cnt; k++)
@@ -868,9 +725,6 @@ int main()
 
 					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
 					{
-
-						//signed short int converted_val = 300;
-
 						switch (LMS_Ctrl_Packet_Rx->Data_field[0 + (block)])//ch
 						{
 							case 0://dac val
@@ -930,10 +784,6 @@ int main()
 										dac_val = (LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)] << 8 ) + LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
 
 										Control_TCXO_DAC (1, &dac_val);
-
-										//dac_data[0] = (dac_val >> 2) & 0x3F; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
-										//dac_data[1] = (dac_val << 6) & 0xC0; //LSB data
-										//spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
 									}
 									else cmd_errors++;
 								}
@@ -1049,17 +899,6 @@ int main()
 											word |= (ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(LMS_Ctrl_Packet_Rx->Data_field[byte+2]) >> 16) & 0x0000FF00;
 											word |= (ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(LMS_Ctrl_Packet_Rx->Data_field[byte+3]) >> 24) & 0x000000FF;
 
-
-								  		  	//for(byte1=byte; byte1<byte+4; byte1++)
-								  		  	//{
-								  		  	//	LMS_Ctrl_Packet_Rx->Data_field[byte1] = (((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0xaa)>>1)|((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0x55)<<1));		/*Swap LSB with MSB before write into CFM*/
-								  		  	//	LMS_Ctrl_Packet_Rx->Data_field[byte1] = (((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0xcc)>>2)|((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0x33)<<2));
-								  		  	// 	LMS_Ctrl_Packet_Rx->Data_field[byte1] = (((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0xf0)>>4)|((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0x0f)<<4));
-								  		  	//}
-
-											//Swap bits using hardware accelerator
-											//word = ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(word);
-
 											//Command to write into On-Chip Flash IP
 											if(address <= CFM0EndAddress)
 											{
@@ -1148,12 +987,10 @@ int main()
 						}
 					}
 
-					//**ZT Modify_BRDSPI16_Reg_bits (FPGA_SPI_REG_LMS1_LMS2_CTRL, LMS1_SS, LMS1_SS, 0); //Enable LMS's SPI
 
 					if (current_portion == 0) //PORTION_NR = first fifo
 					{
 						//reset mcu
-						//write reg addr - mSPI_REG2 (Controls MCU input pins)
 						sc_brdg_data[0] = (0x80); //reg addr MSB with write bit
 						sc_brdg_data[1] = (MCU_CONTROL_REG); //reg addr LSB
 
@@ -1175,34 +1012,25 @@ int main()
 						{
 							case PROG_EEPROM:
 								sc_brdg_data[3] = (0x01); //Programming both EEPROM and SRAM  //8
-								//**ZT CyU3PSpiTransmitWords (&sc_brdg_data[0], 4);
 								spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 4, &sc_brdg_data[0], 0, NULL, 0);
 								break;
 
 							case PROG_SRAM:
 								sc_brdg_data[3] =(0x02); //Programming only SRAM  //8
-								//**ZT CyU3PSpiTransmitWords (&sc_brdg_data[0], 4);
 								spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 4, &sc_brdg_data[0], 0, NULL, 0);
 								break;
 
 
 							case BOOT_MCU:
 								sc_brdg_data[3] = (0x03); //Programming both EEPROM and SRAM  //8
-								//**ZT CyU3PSpiTransmitWords (&sc_brdg_data[0], 4);
 								spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 4, &sc_brdg_data[0], 0, NULL, 0);
-
-								/*sbi (PORTB, SAEN); //Disable LMS's SPI
-								cbi (PORTB, SAEN); //Enable LMS's SPI*/
 
 								//spi read
 								//write reg addr
 								sc_brdg_data[0] = (0x00); //reg addr MSB
 								sc_brdg_data[1] = (MCU_STATUS_REG); //reg addr LSB
-								//**ZT CyU3PSpiTransmitWords (&sc_brdg_data[0], 2);
-								//spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 2, &sc_brdg_data[0], 0, NULL, 0);
 
 								//read reg data
-								//**ZT CyU3PSpiReceiveWords (&sc_brdg_data[0], 2); //reg data
 								spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 2, &sc_brdg_data[0], 2, &sc_brdg_data[0], 0);
 
 								goto BOOTING;
@@ -1238,26 +1066,6 @@ int main()
 					//write 32 bytes to FIFO
 					for(block = 0; block < 32; block++)
 					{
-						/*
-						//wait till EMPTY_WRITE_BUFF = 1
-						while (MCU_retries < MAX_MCU_RETRIES)
-						{
-							//read status reg
-
-							//spi read
-							//write reg addr
-							SPI_SendByte(0x00); //reg addr MSB
-							SPI_SendByte(MCU_STATUS_REG); //reg addr LSB
-
-							//read reg data
-							SPI_TransferByte(0x00); //reg data MSB
-							temp_status = SPI_TransferByte(0x00); //reg data LSB
-
-							if (temp_status &0x01) break;
-
-							MCU_retries++;
-							Delay_us (30);
-						}*/
 
 						//write reg addr - mSPI_REG4 (Writes one byte of data to MCU  )
 						sc_brdg_data[0] = (0x80); //reg addr MSB with write bit
@@ -1350,13 +1158,11 @@ int main()
  				break;
      		}
 
-     		///////////for testing
-     		//LMS_Ctrl_Packet_Tx->Header.Status = STATUS_INVALID_PERIPH_ID_CMD;
 
      		//Send response to the command
-        	for(cnt=0; cnt<64/sizeof(uint32_t); ++cnt)
+        	for(int i=0; i<64/sizeof(uint32_t); ++i)
         	{
-        		IOWR(AV_FIFO_INT_0_BASE, 0, dest[cnt]);
+        		IOWR(AV_FIFO_INT_0_BASE, 0, dest[i]);
         	};
 
         	// If boot from flash CMD is executed FPGA GW is loaded from internal FLASH (image 1)
@@ -1368,25 +1174,6 @@ int main()
 
 
         };
-
-        //IOWR(AV_FIFO_INT_0_BASE, 0, cnt);		// Write Data to FIFO
-
-
-        //IOWR(AV_FIFO_INT_0_BASE, 3, 1);		// Toggle FIFO reset
-        //IOWR(AV_FIFO_INT_0_BASE, 3, 0);		// Toggle FIFO reset
-
-
-
-/*
-        // UART
-        char *ptr = str;
-        while (*ptr != '\0')
-        {
-           while ((uart[2] & (1<<6)) == 0);
-           uart[1] = *ptr;
-           ptr++;
-        }
-*/
 
     }
 
