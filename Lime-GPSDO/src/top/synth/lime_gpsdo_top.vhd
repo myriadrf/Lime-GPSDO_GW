@@ -27,13 +27,26 @@ entity lime_gpsdo_top is
       CLK0_OUT          : in     std_logic;
       -- ----------------------------------------------------------------------------
       -- USB UART
+      CP_DCD            : in     std_logic;
+      CP_RI_CLK         : in     std_logic;
+      CP_CTS            : in     std_logic;
+      CP_RTS            : in     std_logic;
       CP_RXD            : out    std_logic;
       CP_TXD            : in     std_logic;
+      CP_DSR            : in     std_logic;
+      CP_DTR            : in     std_logic;
+      CP_GPIO           : in     std_logic_vector(6 downto 0);      
       -- GNSS
+      GNSS_OFF          : in     std_logic;
+      GNSS_ANT_DET      : in     std_logic;
+      GNSS_ANT_OK       : in     std_logic;
       GNSS_RESET        : out    std_logic := '1';
       GNSS_TPULSE       : in     std_logic;
+      GNSS_EXTINT       : in     std_logic := '0';
       GNSS_UART_TX      : in     std_logic;
       GNSS_UART_RX      : out    std_logic;
+      GNSS_DDC_SDA      : inout  std_logic;
+      GNSS_DDC_SCL      : inout  std_logic;
       -- ----------------------------------------------------------------------------
       -- External communication interfaces
          -- FPGA_SPI1
@@ -48,6 +61,12 @@ entity lime_gpsdo_top is
          -- FPGA I2C
       FPGA_I2C_SCL      : inout  std_logic;
       FPGA_I2C_SDA      : inout  std_logic;
+         -- External I2C
+      EXT_I2C_SCL       : inout  std_logic;
+      EXT_I2C_SDA       : inout  std_logic;
+         -- External UART
+      EXT_UART_RX       : in     std_logic;
+      EXT_UART_TX       : out    std_logic;
       -- ----------------------------------------------------------------------------
       -- General periphery
          -- Switch
@@ -61,8 +80,14 @@ entity lime_gpsdo_top is
       FPGA_LED3_R       : out    std_logic := '1';      
          -- Button
       FPGA_BTN          : in     std_logic;
+         --GPIO 
+      FPGA_GPIO         : inout  std_logic_vector(7 downto 0);
          -- Time pulse
-      FPGA_TPULSE       : out    std_logic
+      FPGA_TPULSE       : out    std_logic;
+         -- Temp sensor
+      LM75_OS           : in     std_logic;
+         -- Bill of material version
+      BOM_VER           : in     std_logic_vector(3 downto 0)
    );
 end lime_gpsdo_top;
 
@@ -215,7 +240,8 @@ begin
 -- ----------------------------------------------------------------------------  
    FPGA_SPI1_MOSI    <= inst0_fpga_spi_MOSI;
    FPGA_SPI1_SCLK    <= inst0_fpga_spi_SCLK;
-
+   
+   --FPGA_LED
    FPGA_LED1_G       <= not inst2_fpga_led_g;
    FPGA_LED1_R       <= not inst2_fpga_led_r;
    FPGA_LED2_G       <= '1';
@@ -223,13 +249,13 @@ begin
    FPGA_LED3_G       <= '1';
    FPGA_LED3_R       <= '1';
    
-   
-   
+   --USB UART
    CP_RXD            <= GNSS_UART_TX   when FPGA_SW(0) = '0' else  
                         inst1_uart_txd when FPGA_SW(1) = '0' else inst2_uart_tx;                 
-                                               
+   --GNSS                                           
    GNSS_UART_RX      <= CP_TXD         when FPGA_SW(0) = '0' else '1';
    
+   --MISC
    FPGA_TPULSE       <= GNSS_TPULSE;
    
    

@@ -675,5 +675,82 @@ set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_SW[0]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_SW[1]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_SW[2]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_SW[3]
-set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp
+set_location_assignment PIN_H1 -to LM75_OS
+set_location_assignment PIN_F1 -to GNSS_OFF
+set_location_assignment PIN_B1 -to GNSS_EXTINT
+set_location_assignment PIN_B2 -to GNSS_DDC_SDA
+set_location_assignment PIN_A3 -to GNSS_DDC_SCL
+set_location_assignment PIN_D1 -to GNSS_ANT_OK
+set_location_assignment PIN_E1 -to GNSS_ANT_DET
+set_location_assignment PIN_M12 -to FPGA_GPIO[0]
+set_location_assignment PIN_M10 -to FPGA_GPIO[1]
+set_location_assignment PIN_N12 -to FPGA_GPIO[2]
+set_location_assignment PIN_N10 -to FPGA_GPIO[3]
+set_location_assignment PIN_M11 -to FPGA_GPIO[4]
+set_location_assignment PIN_M9 -to FPGA_GPIO[5]
+set_location_assignment PIN_N11 -to FPGA_GPIO[6]
+set_location_assignment PIN_N9 -to FPGA_GPIO[7]
+set_location_assignment PIN_C11 -to EXT_UART_TX
+set_location_assignment PIN_C12 -to EXT_UART_RX
+set_location_assignment PIN_A5 -to EXT_I2C_SDA
+set_location_assignment PIN_B4 -to EXT_I2C_SCL
+set_location_assignment PIN_F12 -to CP_RTS
+set_location_assignment PIN_M13 -to CP_RI_CLK
+set_location_assignment PIN_C13 -to CP_GPIO[0]
+set_location_assignment PIN_B13 -to CP_GPIO[1]
+set_location_assignment PIN_B12 -to CP_GPIO[2]
+set_location_assignment PIN_A12 -to CP_GPIO[3]
+set_location_assignment PIN_E13 -to CP_GPIO[4]
+set_location_assignment PIN_E12 -to CP_GPIO[5]
+set_location_assignment PIN_D13 -to CP_GPIO[6]
+set_location_assignment PIN_J13 -to CP_DTR
+set_location_assignment PIN_H13 -to CP_DSR
+set_location_assignment PIN_K13 -to CP_DCD
+set_location_assignment PIN_F13 -to CP_CTS
+set_location_assignment PIN_B5 -to BOM_VER[3]
+set_location_assignment PIN_A6 -to BOM_VER[2]
+set_location_assignment PIN_B6 -to BOM_VER[1]
+set_location_assignment PIN_A7 -to BOM_VER[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to BOM_VER[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to altera_reserved_tms
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to altera_reserved_tdo
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to altera_reserved_tdi
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to altera_reserved_tck
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to GNSS_OFF
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to GNSS_EXTINT
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to GNSS_ANT_OK
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to GNSS_ANT_DET
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LM75_OS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SW
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_RI_CLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_DTR
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_DSR
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_DCD
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to EXT_UART_TX
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to EXT_UART_RX
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_RTS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_GPIO[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_GPIO[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_GPIO[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_GPIO[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_GPIO[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_GPIO[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_GPIO[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to CP_CTS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to GNSS_DDC_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to GNSS_DDC_SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to EXT_I2C_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to EXT_I2C_SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to BOM_VER[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to BOM_VER[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to BOM_VER[2]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp
