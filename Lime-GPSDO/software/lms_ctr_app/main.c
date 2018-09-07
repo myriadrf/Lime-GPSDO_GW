@@ -52,7 +52,6 @@ tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Tx = (tLMS_Ctrl_Packet*)glEp0Buffer_Tx;
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Rx = (tLMS_Ctrl_Packet*)glEp0Buffer_Rx;
 
 uint16_t dac_val = 30714;		//TCXO DAC value
-unsigned char dac_data[2];
 
 signed short int converted_val = 300;
 
@@ -230,7 +229,10 @@ int main()
     volatile int spirez;
     int k;
 
-    printf("------ Lime-GPSDO v1.0; GW v1.0; ------\r\n");
+    printf("------ Lime-GPSDO v1.");
+    printf("%u; ", HW_VER);
+    printf("FW v1.");
+    printf("%u; 30.72MHz ------\r\n\r\n", FW_VER);
 
     uint8_t vctcxo_tamer_irq = 0;
     uint8_t vctcxo_tamer_en=0,	vctcxo_tamer_en_old = 0;
@@ -372,13 +374,9 @@ int main()
                 tune_state = FINE_TUNE;
                 printf("COARSE_TUNE_DONE: \r\n\t");
                 printf("DAC value: ");
-                printf("%u;\r\n", (unsigned int)dac_val);
-                printf("FINE_TUNE: \r\n\t");
-                printf("DAC value \t");
-                printf("Accuracy \t");
-                printf("1s_ERROR \t");
-                printf("10s_ERROR \t");
-                printf("100s_ERROR \r\n\t");
+                printf("%u;\r\n\r\n", (unsigned int)dac_val);
+                printf("FINE_TUNE: \r\n");
+                printf("Err_Flag;DAC value;Error;\r\n");
 
                 break;
 
@@ -401,6 +399,9 @@ int main()
                     // Change DAC value
                     dac_val = (uint16_t) vctcxo_trim_dac_value;
                 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
+                	printf("001;");
+                	printf("%u;", (unsigned int)dac_val);
+                	printf("%i;\r\n", (int) vctcxo_tamer_pkt.pps_1s_error);
 
                 } else if( vctcxo_tamer_pkt.pps_10s_error_flag ) {
                 	vctcxo_trim_dac_value = (vctcxo_trim_dac_value -
@@ -410,6 +411,9 @@ int main()
                     // Change DAC value
                     dac_val = (uint16_t) vctcxo_trim_dac_value;
                 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
+                	printf("010;");
+                	printf("%u;", (unsigned int)dac_val);
+                	printf("%i;\r\n", (int) vctcxo_tamer_pkt.pps_10s_error);
 
                 } else if( vctcxo_tamer_pkt.pps_100s_error_flag ) {
                 	vctcxo_trim_dac_value = (vctcxo_trim_dac_value -
@@ -419,6 +423,9 @@ int main()
                     // Change DAC value
                     dac_val = (uint16_t) vctcxo_trim_dac_value;
                 	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
+                	printf("100;");
+                	printf("%u;", (unsigned int)dac_val);
+                	printf("%i;\r\n", (int) vctcxo_tamer_pkt.pps_100s_error);
                 }
 
                 break;
