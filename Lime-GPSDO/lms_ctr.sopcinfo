@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="lms_ctr" kind="lms_ctr" version="1.0" fabric="QSYS">
  <!-- Format version 18.0 614 (Future versions may contain additional information.) -->
- <!-- 2018.09.06.13:51:06 -->
+ <!-- 2018.09.07.12:00:49 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1536231065</value>
+  <value>1536310849</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -14282,7 +14282,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1536231065</value>
+   <value>1536310849</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -14302,7 +14302,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1536231065</value>
+   <value>1536310849</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -14318,7 +14318,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1536231065</value>
+   <value>1536310849</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -18410,33 +18410,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_cpu.debug_reset_request/clk_main.clk_in_reset"
-   kind="reset"
-   version="18.0"
-   start="nios2_cpu.debug_reset_request"
-   end="clk_main.clk_in_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_cpu</startModule>
-  <startConnectionPoint>debug_reset_request</startConnectionPoint>
-  <endModule>clk_main</endModule>
-  <endConnectionPoint>clk_in_reset</endConnectionPoint>
- </connection>
- <connection
    name="nios2_cpu.debug_reset_request/i2c_opencores_0.clock_reset"
    kind="reset"
    version="18.0"
@@ -19071,7 +19044,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.0</version>
  </plugin>
  <plugin>
-  <instanceCount>28</instanceCount>
+  <instanceCount>27</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="lms_ctr" kind="system" version="18.0" fabric="QSYS">
  <!-- Format version 18.0 614 (Future versions may contain additional information.) -->
- <!-- 2018.09.06.13:51:29 -->
+ <!-- 2018.09.07.12:01:16 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1536231065</value>
+  <value>1536310849</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -14184,7 +14184,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1536231065</value>
+   <value>1536310849</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -14204,7 +14204,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1536231065</value>
+   <value>1536310849</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -14220,7 +14220,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1536231065</value>
+   <value>1536310849</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -26568,33 +26568,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_cpu.debug_reset_request/clk_main.clk_in_reset"
-   kind="reset"
-   version="18.0"
-   start="nios2_cpu.debug_reset_request"
-   end="clk_main.clk_in_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_cpu</startModule>
-  <startConnectionPoint>debug_reset_request</startConnectionPoint>
-  <endModule>clk_main</endModule>
-  <endConnectionPoint>clk_in_reset</endConnectionPoint>
- </connection>
- <connection
    name="nios2_cpu.custom_instruction_master/nios2_cpu_custom_instruction_master_translator.ci_slave"
    kind="nios_custom_instruction"
    version="18.0"
@@ -29572,14 +29545,6 @@ parameters are a RESULT of the module parameters. -->
   <version>18.0</version>
  </plugin>
  <plugin>
-  <instanceCount>1</instanceCount>
-  <name>reset</name>
-  <type>com.altera.entityinterfaces.IElementClass</type>
-  <subtype>com.altera.entityinterfaces.IConnection</subtype>
-  <displayName>Reset Connection</displayName>
-  <version>18.0</version>
- </plugin>
- <plugin>
   <instanceCount>4</instanceCount>
   <name>nios_custom_instruction</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
@@ -29620,5 +29585,5 @@ parameters are a RESULT of the module parameters. -->
   <version>18.0</version>
  </plugin>
  <reportVersion>18.0 614</reportVersion>
- <uniqueIdentifier>00155D12CD0100000165AE81DB8B</uniqueIdentifier>
+ <uniqueIdentifier>00155D12CD0100000165B3434286</uniqueIdentifier>
 </EnsembleReport>

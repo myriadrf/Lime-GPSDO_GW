@@ -35,6 +35,7 @@
 		.switch_external_connection_export       (<connected-to-switch_external_connection_export>),       //       switch_external_connection.export
 		.uart_external_connection_rxd            (<connected-to-uart_external_connection_rxd>),            //         uart_external_connection.rxd
 		.uart_external_connection_txd            (<connected-to-uart_external_connection_txd>),            //                                 .txd
-		.vctcxo_tamer_0_ctrl_export              (<connected-to-vctcxo_tamer_0_ctrl_export>)               //              vctcxo_tamer_0_ctrl.export
+		.vctcxo_tamer_0_ctrl_export              (<connected-to-vctcxo_tamer_0_ctrl_export>),              //              vctcxo_tamer_0_ctrl.export
+		.reset_reset_n                           (<connected-to-reset_reset_n>)                            //                            reset.reset_n
 	);
 

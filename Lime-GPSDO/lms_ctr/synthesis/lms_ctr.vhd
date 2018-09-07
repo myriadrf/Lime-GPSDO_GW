@@ -41,6 +41,7 @@ entity lms_ctr is
 		i2c_sda_export                          : inout std_logic                     := '0';             --                          i2c_sda.export
 		leds_external_connection_export         : out   std_logic_vector(7 downto 0);                     --         leds_external_connection.export
 		lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                     -- lms_ctr_gpio_external_connection.export
+		reset_reset_n                           : in    std_logic                     := '0';             --                            reset.reset_n
 		switch_external_connection_export       : in    std_logic_vector(7 downto 0)  := (others => '0'); --       switch_external_connection.export
 		uart_external_connection_rxd            : in    std_logic                     := '0';             --         uart_external_connection.rxd
 		uart_external_connection_txd            : out   std_logic;                                        --                                 .txd
@@ -855,7 +856,6 @@ architecture rtl of lms_ctr is
 		);
 	end component lms_ctr_rst_controller_002;
 
-	signal nios2_cpu_debug_reset_request_reset                                         : std_logic;                     -- nios2_cpu:debug_reset_request -> [rst_controller:reset_in0, rst_controller:reset_in1, rst_controller_001:reset_in0, rst_controller_002:reset_in0]
 	signal nios2_cpu_custom_instruction_master_readra                                  : std_logic;                     -- nios2_cpu:D_ci_readra -> nios2_cpu_custom_instruction_master_translator:ci_slave_readra
 	signal nios2_cpu_custom_instruction_master_a                                       : std_logic_vector(4 downto 0);  -- nios2_cpu:D_ci_a -> nios2_cpu_custom_instruction_master_translator:ci_slave_a
 	signal nios2_cpu_custom_instruction_master_b                                       : std_logic_vector(4 downto 0);  -- nios2_cpu:D_ci_b -> nios2_cpu_custom_instruction_master_translator:ci_slave_b
@@ -1008,9 +1008,11 @@ architecture rtl of lms_ctr is
 	signal nios2_cpu_irq_irq                                                           : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> nios2_cpu:irq
 	signal rst_controller_reset_out_reset                                              : std_logic;                     -- rst_controller:reset_out -> [i2c_opencores_0:wb_rst_i, irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_reset_out_reset_req                                          : std_logic;                     -- rst_controller:reset_req -> [nios2_cpu:reset_req, rst_translator:reset_req_in]
+	signal nios2_cpu_debug_reset_request_reset                                         : std_logic;                     -- nios2_cpu:debug_reset_request -> [rst_controller:reset_in1, rst_controller_002:reset_in0]
 	signal rst_controller_001_reset_out_reset                                          : std_logic;                     -- rst_controller_001:reset_out -> [Avalon_MM_external_0:reset_reset, mm_interconnect_0:Avalon_MM_external_0_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
 	signal rst_controller_002_reset_out_reset                                          : std_logic;                     -- rst_controller_002:reset_out -> [mm_interconnect_0:dual_boot_0_nreset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, rst_controller_002_reset_out_reset:in, rst_translator_001:in_reset]
 	signal rst_controller_002_reset_out_reset_req                                      : std_logic;                     -- rst_controller_002:reset_req -> [onchip_memory2_0:reset_req, rst_translator_001:reset_req_in]
+	signal reset_reset_n_ports_inv                                                     : std_logic;                     -- reset_reset_n:inv -> [rst_controller:reset_in0, rst_controller_001:reset_in0]
 	signal mm_interconnect_0_i2c_opencores_0_avalon_slave_0_inv                        : std_logic;                     -- i2c_opencores_0_avalon_slave_0_waitrequest:inv -> mm_interconnect_0:i2c_opencores_0_avalon_slave_0_waitrequest
 	signal mm_interconnect_0_leds_s1_write_ports_inv                                   : std_logic;                     -- mm_interconnect_0_leds_s1_write:inv -> leds:write_n
 	signal mm_interconnect_0_uart_s1_read_ports_inv                                    : std_logic;                     -- mm_interconnect_0_uart_s1_read:inv -> uart:read_n
@@ -1642,7 +1644,7 @@ begin
 			ADAPT_RESET_REQUEST       => 0
 		)
 		port map (
-			reset_in0      => nios2_cpu_debug_reset_request_reset, -- reset_in0.reset
+			reset_in0      => reset_reset_n_ports_inv,             -- reset_in0.reset
 			reset_in1      => nios2_cpu_debug_reset_request_reset, -- reset_in1.reset
 			clk            => clk_clk,                             --       clk.clk
 			reset_out      => rst_controller_reset_out_reset,      -- reset_out.reset
@@ -1707,41 +1709,41 @@ begin
 			ADAPT_RESET_REQUEST       => 0
 		)
 		port map (
-			reset_in0      => nios2_cpu_debug_reset_request_reset, -- reset_in0.reset
-			clk            => clk_clk,                             --       clk.clk
-			reset_out      => rst_controller_001_reset_out_reset,  -- reset_out.reset
-			reset_req      => open,                                -- (terminated)
-			reset_req_in0  => '0',                                 -- (terminated)
-			reset_in1      => '0',                                 -- (terminated)
-			reset_req_in1  => '0',                                 -- (terminated)
-			reset_in2      => '0',                                 -- (terminated)
-			reset_req_in2  => '0',                                 -- (terminated)
-			reset_in3      => '0',                                 -- (terminated)
-			reset_req_in3  => '0',                                 -- (terminated)
-			reset_in4      => '0',                                 -- (terminated)
-			reset_req_in4  => '0',                                 -- (terminated)
-			reset_in5      => '0',                                 -- (terminated)
-			reset_req_in5  => '0',                                 -- (terminated)
-			reset_in6      => '0',                                 -- (terminated)
-			reset_req_in6  => '0',                                 -- (terminated)
-			reset_in7      => '0',                                 -- (terminated)
-			reset_req_in7  => '0',                                 -- (terminated)
-			reset_in8      => '0',                                 -- (terminated)
-			reset_req_in8  => '0',                                 -- (terminated)
-			reset_in9      => '0',                                 -- (terminated)
-			reset_req_in9  => '0',                                 -- (terminated)
-			reset_in10     => '0',                                 -- (terminated)
-			reset_req_in10 => '0',                                 -- (terminated)
-			reset_in11     => '0',                                 -- (terminated)
-			reset_req_in11 => '0',                                 -- (terminated)
-			reset_in12     => '0',                                 -- (terminated)
-			reset_req_in12 => '0',                                 -- (terminated)
-			reset_in13     => '0',                                 -- (terminated)
-			reset_req_in13 => '0',                                 -- (terminated)
-			reset_in14     => '0',                                 -- (terminated)
-			reset_req_in14 => '0',                                 -- (terminated)
-			reset_in15     => '0',                                 -- (terminated)
-			reset_req_in15 => '0'                                  -- (terminated)
+			reset_in0      => reset_reset_n_ports_inv,            -- reset_in0.reset
+			clk            => clk_clk,                            --       clk.clk
+			reset_out      => rst_controller_001_reset_out_reset, -- reset_out.reset
+			reset_req      => open,                               -- (terminated)
+			reset_req_in0  => '0',                                -- (terminated)
+			reset_in1      => '0',                                -- (terminated)
+			reset_req_in1  => '0',                                -- (terminated)
+			reset_in2      => '0',                                -- (terminated)
+			reset_req_in2  => '0',                                -- (terminated)
+			reset_in3      => '0',                                -- (terminated)
+			reset_req_in3  => '0',                                -- (terminated)
+			reset_in4      => '0',                                -- (terminated)
+			reset_req_in4  => '0',                                -- (terminated)
+			reset_in5      => '0',                                -- (terminated)
+			reset_req_in5  => '0',                                -- (terminated)
+			reset_in6      => '0',                                -- (terminated)
+			reset_req_in6  => '0',                                -- (terminated)
+			reset_in7      => '0',                                -- (terminated)
+			reset_req_in7  => '0',                                -- (terminated)
+			reset_in8      => '0',                                -- (terminated)
+			reset_req_in8  => '0',                                -- (terminated)
+			reset_in9      => '0',                                -- (terminated)
+			reset_req_in9  => '0',                                -- (terminated)
+			reset_in10     => '0',                                -- (terminated)
+			reset_req_in10 => '0',                                -- (terminated)
+			reset_in11     => '0',                                -- (terminated)
+			reset_req_in11 => '0',                                -- (terminated)
+			reset_in12     => '0',                                -- (terminated)
+			reset_req_in12 => '0',                                -- (terminated)
+			reset_in13     => '0',                                -- (terminated)
+			reset_req_in13 => '0',                                -- (terminated)
+			reset_in14     => '0',                                -- (terminated)
+			reset_req_in14 => '0',                                -- (terminated)
+			reset_in15     => '0',                                -- (terminated)
+			reset_req_in15 => '0'                                 -- (terminated)
 		);
 
 	rst_controller_002 : component lms_ctr_rst_controller_002
@@ -1808,6 +1810,8 @@ begin
 			reset_in15     => '0',                                    -- (terminated)
 			reset_req_in15 => '0'                                     -- (terminated)
 		);
+
+	reset_reset_n_ports_inv <= not reset_reset_n;
 
 	mm_interconnect_0_i2c_opencores_0_avalon_slave_0_inv <= not i2c_opencores_0_avalon_slave_0_waitrequest;
 

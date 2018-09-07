@@ -431,6 +431,7 @@
    internal="lms_ctr_gpio.external_connection"
    type="conduit"
    dir="end" />
+ <interface name="reset" internal="clk_main.clk_in_reset" type="reset" dir="end" />
  <interface
    name="switch_external_connection"
    internal="switch.external_connection"
@@ -1177,11 +1178,6 @@
    version="18.0"
    start="clk_main.clk_reset"
    end="Avalon_MM_external_0.reset" />
- <connection
-   kind="reset"
-   version="18.0"
-   start="nios2_cpu.debug_reset_request"
-   end="clk_main.clk_in_reset" />
  <connection
    kind="reset"
    version="18.0"

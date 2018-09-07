@@ -149,6 +149,7 @@ begin
    inst1_nios_cpu : entity work.nios_cpu
    port map(
       clk100               => CLK50_FPGA,
+      reset_n              => reset_n,
       exfifo_if_d          => (others=>'0'),
       exfifo_if_rd         => open,
       exfifo_if_rdempty    => '1',
@@ -250,8 +251,13 @@ begin
    FPGA_LED3_R       <= '1';
    
    --USB UART
+   -- MUX for UART RX 
+   -- FPGA_SW[1:0]= x0 - GNNSS connected to USB UART
+   -- FPGA_SW[1:0]= 01 - limegnss_gpio module log UART connected to USB UART
+   -- FPGA_SW[1:0]= 11 - NIOS module log UART connected to USB UART
    CP_RXD            <= GNSS_UART_TX   when FPGA_SW(0) = '0' else  
-                        inst1_uart_txd when FPGA_SW(1) = '0' else inst2_uart_tx;                 
+                        inst1_uart_txd when FPGA_SW(1) = '1' else 
+                        inst2_uart_tx;                 
    --GNSS                                           
    GNSS_UART_RX      <= CP_TXD         when FPGA_SW(0) = '0' else '1';
    

@@ -36,7 +36,8 @@ module lms_ctr (
 	switch_external_connection_export,
 	uart_external_connection_rxd,
 	uart_external_connection_txd,
-	vctcxo_tamer_0_ctrl_export);	
+	vctcxo_tamer_0_ctrl_export,
+	reset_reset_n);	
 
 	output	[7:0]	avm_m0_address;
 	output		avm_m0_read;
@@ -75,4 +76,5 @@ module lms_ctr (
 	input		uart_external_connection_rxd;
 	output		uart_external_connection_txd;
 	input	[3:0]	vctcxo_tamer_0_ctrl_export;
+	input		reset_reset_n;
 endmodule
