@@ -17,7 +17,7 @@
 #include "math.h"
 
 #include "LMS64C_protocol.h"
-#include "sodera_pcie_brd_v1r0.h"
+#include "lime_gpsdo_brd_v1r0.h"
 #include "spi_flash_lib.h"
 #include "i2c_opencores.h"
 #include "vctcxo_tamer.h"

@@ -8,12 +8,12 @@
 -- ----------------------------------------------------------------------------	
 
 */
-#ifndef _SODERA_PCIE_BRD_V1R0_H_
-#define _SODERA_PCIE_BRD_V1R0_H_
+#ifndef _LIME_GPSDO_BRD_V1R0_H_
+#define _LIME_GPSDO_BRD_V1R0_H_
 
 #include "LMS64C_protocol.h"
 
-#pragma message ("**** sodera_pcie_brd_v1r0 ****")
+#pragma message ("**** lime_gpsdo_brd_v1r0 ****")
 
 //I2C devices
 #define   LM75_I2C_ADDR		0x48 //0x90

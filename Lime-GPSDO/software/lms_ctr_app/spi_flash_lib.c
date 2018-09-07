@@ -7,7 +7,7 @@
 
 #include "spi_flash_lib.h"
 #include <altera_avalon_spi.h>
-#include "sodera_pcie_brd_v1r0.h"
+#include "lime_gpsdo_brd_v1r0.h"
 
 
 /**
