@@ -35,8 +35,11 @@ package nmea_parser_pkg is
    
    constant C_GSA          : std_logic_vector(23 downto 0); -- Sentence ID = GNSS DOP and Active Satellites
    
-   constant C_GPGSA        : std_logic_vector(39 downto 0);
+   constant C_GAGSA        : std_logic_vector(39 downto 0);
+   constant C_GBGSA        : std_logic_vector(39 downto 0);
+   constant C_GLGSA        : std_logic_vector(39 downto 0);
    constant C_GNGSA        : std_logic_vector(39 downto 0);
+   constant C_GPGSA        : std_logic_vector(39 downto 0);
    constant C_GNGGA        : std_logic_vector(39 downto 0);
    constant C_GNRMC        : std_logic_vector(39 downto 0);
    
@@ -48,7 +51,7 @@ package nmea_parser_pkg is
    -- sentence data field numbers starts from 1
    constant gsa_fix_d    : integer := 2; 
    constant gga_utc_d    : integer := 1;
-   --RMC � Recommended Minimum Specific GNSS Data field numbers
+   --RMC Recommended Minimum Specific GNSS Data field numbers
    constant rmc_utc_d      : integer := 1;
    constant rmc_stat_d     : integer := 2;
    constant rmc_lat_d0     : integer := 3;
@@ -153,8 +156,11 @@ constant C_GN        : std_logic_vector(15 downto 0) := str_to_slv("GN");
 
 constant C_GSA       : std_logic_vector(23 downto 0) := str_to_slv("GSA");
 
-constant C_GPGSA     : std_logic_vector(39 downto 0) := str_to_slv("GPGSA");
+constant C_GAGSA     : std_logic_vector(39 downto 0) := str_to_slv("GAGSA");
+constant C_GBGSA     : std_logic_vector(39 downto 0) := str_to_slv("GBGSA");
+constant C_GLGSA     : std_logic_vector(39 downto 0) := str_to_slv("GLGSA");
 constant C_GNGSA     : std_logic_vector(39 downto 0) := str_to_slv("GNGSA");
+constant C_GPGSA     : std_logic_vector(39 downto 0) := str_to_slv("GPGSA");
 constant C_GNGGA     : std_logic_vector(39 downto 0) := str_to_slv("GNGGA");
 constant C_GNRMC     : std_logic_vector(39 downto 0) := str_to_slv("GNRMC");
    

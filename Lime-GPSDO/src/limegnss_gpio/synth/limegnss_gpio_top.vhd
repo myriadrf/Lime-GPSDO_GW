@@ -9,6 +9,7 @@
 -- ----------------------------------------------------------------------------
 --NOTES:
 -- ----------------------------------------------------------------------------
+-- altera vhdl_input_version vhdl_2008
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -88,8 +89,13 @@ signal inst0_vctcxo_tune_accuracy   : std_logic_vector(3 downto 0);
 signal inst0_en                     : std_logic;
 --inst1
 signal inst1_sdout                  : std_logic;
-signal inst1_gpgsa_fix              : std_logic;
+signal inst1_gagsa_fix              : std_logic;
+signal inst1_gbgsa_fix              : std_logic;
+signal inst1_glgsa_fix              : std_logic;
 signal inst1_gngsa_fix              : std_logic;
+signal inst1_gpgsa_fix              : std_logic;
+--inst2
+signal inst2_gnss_fix               : std_logic;
 
 --inst3
 signal inst3_data_out               : std_logic_vector(7 downto 0);
@@ -156,12 +162,19 @@ gnss_top_inst1 : entity work.gnss_top
       reset_n              => areset_n,
       data                 => uart_data_reg,
       data_v               => uart_data_valid,
-      gpgsa_fix            => inst1_gpgsa_fix,
-      gngsa_fix            => inst1_gngsa_fix
+      gagsa_fix            => inst1_gagsa_fix,
+      gbgsa_fix            => inst1_gbgsa_fix,
+      glgsa_fix            => inst1_glgsa_fix,
+      gngsa_fix            => inst1_gngsa_fix,
+      gpgsa_fix            => inst1_gpgsa_fix
+
      );   
 -- ----------------------------------------------------------------------------
 -- Led module
--- ----------------------------------------------------------------------------   
+-- ----------------------------------------------------------------------------
+   inst2_gnss_fix <= inst1_gpgsa_fix OR inst1_gngsa_fix OR inst1_glgsa_fix OR 
+                     inst1_gbgsa_fix OR inst1_gagsa_fix;
+   
    gnss_led_inst2 : entity work.gnss_led
    port map(
 
@@ -173,7 +186,7 @@ gnss_top_inst1 : entity work.gnss_top
       vctcxo_tune_accuracy    => inst0_vctcxo_tune_accuracy,
       
       --gnss module ports
-      gnss_fix                => inst1_gngsa_fix,--inst1_gpgsa_fix,
+      gnss_fix                => inst2_gnss_fix,
       gnss_tpulse             => gnss_tpulse,
       gnss_led_r              => fpga_led_r,
       gnss_led_g              => fpga_led_g
@@ -235,7 +248,7 @@ process(vctcxo_clk, areset_n)
 -- Output ports
 -- ----------------------------------------------------------------------------    
 sdout    <= inst0_sdout OR inst1_sdout;
-en       <= inst0_en AND inst1_gngsa_fix; --inst1_gpgsa_fix;
+en       <= inst0_en AND inst2_gnss_fix;
   
 end arch;   
 

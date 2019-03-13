@@ -24,13 +24,17 @@ entity nmea_str_to_bcd is
       
       --Parsed NMEA sentences (ASCII format)
          --GSA - GNSS DOP and Active Satellites
-      GPGSA_valid_str : in std_logic;                    -- GPGSA message valid
+      GAGSA_valid_str : in std_logic;
+      GBGSA_valid_str : in std_logic;
+      GLGSA_valid_str : in std_logic;
+      GNGSA_valid_str : in std_logic;
+      GPGSA_valid_str : in std_logic;                    
          --d2, Mode: 1 = Fix not available, 2 = 2D, 3 = 3D, Max char = 1
-      GPGSA_fix_str   : in std_logic_vector(7 downto 0);
-         --GSA - GNSS DOP and Active Satellites
-      GNGSA_valid_str : in std_logic;                    -- GNGSA message valid
-         --d2, Mode: 1 = Fix not available, 2 = 2D, 3 = 3D, Max char = 1
+      GAGSA_fix_str   : in std_logic_vector(7 downto 0);
+      GBGSA_fix_str   : in std_logic_vector(7 downto 0);
+      GLGSA_fix_str   : in std_logic_vector(7 downto 0);
       GNGSA_fix_str   : in std_logic_vector(7 downto 0);
+      GPGSA_fix_str   : in std_logic_vector(7 downto 0);
          --RMC – Recommended Minimum Specific GNSS Data
       GNRMC_valid_str : in std_logic;                    -- GNRMC message valid
          --d1, UTC of position , Max char = 10
@@ -50,13 +54,17 @@ entity nmea_str_to_bcd is
       
       --Parsed NMEA sentences (BCD format)
       --GSA - GNSS DOP and Active Satellites
+      GAGSA_valid_bcd : out std_logic;
+      GBGSA_valid_bcd : out std_logic;
+      GLGSA_valid_bcd : out std_logic;
+      GNGSA_valid_bcd : out std_logic; 
       GPGSA_valid_bcd : out std_logic;                    -- GPGSA message valid
          --d2, Mode: 1 = Fix not available, 2 = 2D, 3 = 3D, Max char = 1
-      GPGSA_fix_bcd   : out std_logic_vector(3 downto 0);
-      --GSA - GNSS DOP and Active Satellites
-      GNGSA_valid_bcd : out std_logic;                    -- GNGSA message valid
-         --d2, Mode: 1 = Fix not available, 2 = 2D, 3 = 3D, Max char = 1
+      GAGSA_fix_bcd   : out std_logic_vector(3 downto 0);
+      GBGSA_fix_bcd   : out std_logic_vector(3 downto 0);
+      GLGSA_fix_bcd   : out std_logic_vector(3 downto 0);   
       GNGSA_fix_bcd   : out std_logic_vector(3 downto 0);
+      GPGSA_fix_bcd   : out std_logic_vector(3 downto 0);
          --RMC – Recommended Minimum Specific GNSS Data
       GNRMC_valid_bcd : out std_logic;                    -- GNRMC message valid
          --d1, UTC of position , Max char = 10
@@ -91,8 +99,8 @@ signal GNRMC_speed_vect : std_logic_vector(47 downto 0); -- 6 char
 signal GNRMC_course_vect: std_logic_vector(39 downto 0); -- 5 char 
 signal GNRMC_date_vect  : std_logic_vector(47 downto 0); -- 6 char
 
-signal str_vect         : std_logic_vector(359 downto 0); -- 43 char + 2
-signal bcd_vect         : std_logic_vector(179 downto 0);
+signal str_vect         : std_logic_vector(383 downto 0); -- 43 char + 5
+signal bcd_vect         : std_logic_vector(191 downto 0);
 
   
 begin
@@ -106,13 +114,13 @@ begin
    GNRMC_date_vect   <= GNRMC_date_str;
    
    str_vect          <= GNRMC_date_vect & GNRMC_course_vect & GNRMC_speed_vect & 
-                        GNRMC_long_vect & GNRMC_lat_vect  & GNRMC_utc_vect & GNGSA_fix_str &
-                        GPGSA_fix_str;
+                        GNRMC_long_vect & GNRMC_lat_vect  & GNRMC_utc_vect & GPGSA_fix_str &
+                        GNGSA_fix_str & GLGSA_fix_str & GBGSA_fix_str & GAGSA_fix_str;
    
    -- string to bcd conversion
    str_to_bcd : entity work.str_to_bcd
    generic map(
-      char_n      => 45
+      char_n      => 48
       )
    port map(
       clk         => clk,
@@ -165,10 +173,18 @@ begin
    -- conversion takes one clock cycle, so valid signal is delayed on clock cycle
    process(clk, reset_n)
    begin
-      if reset_n = '0' then 
+      if reset_n = '0' then
+         GAGSA_valid_bcd <= '0';
+         GBGSA_valid_bcd <= '0';
+         GLGSA_valid_bcd <= '0';
+         GNGSA_valid_bcd <= '0';
          GPGSA_valid_bcd <= '0';
          GNRMC_valid_bcd <= '0';
-      elsif (clk'event AND clk='1') then 
+      elsif (clk'event AND clk='1') then
+         GAGSA_valid_bcd <= GAGSA_valid_str;
+         GBGSA_valid_bcd <= GBGSA_valid_str;
+         GLGSA_valid_bcd <= GLGSA_valid_str;
+         GNGSA_valid_bcd <= GNGSA_valid_str;
          GPGSA_valid_bcd <= GPGSA_valid_str;
          GNRMC_valid_bcd <= GNRMC_valid_str;
       end if;
@@ -177,14 +193,17 @@ begin
 -- ----------------------------------------------------------------------------
 -- Output ports
 -- ----------------------------------------------------------------------------   
-   GPGSA_fix_bcd     <= bcd_vect(3 downto 0);
-   GNGSA_fix_bcd     <= bcd_vect(7 downto 4);
-   GNRMC_utc_bcd     <= bcd_vect(43 downto 8);
-   GNRMC_lat_bcd     <= bcd_vect(75 downto 44);   
-   GNRMC_long_bcd    <= bcd_vect(111 downto 76);
-   GNRMC_speed_bcd   <= bcd_vect(135 downto 112);
-   GNRMC_course_bcd  <= bcd_vect(155 downto 136);
-   GNRMC_date_bcd    <= bcd_vect(179 downto 156);
+   GAGSA_fix_bcd     <= bcd_vect(3 downto 0);
+   GBGSA_fix_bcd     <= bcd_vect(7 downto 4);
+   GLGSA_fix_bcd     <= bcd_vect(11 downto 8);
+   GNGSA_fix_bcd     <= bcd_vect(15 downto 12);
+   GPGSA_fix_bcd     <= bcd_vect(19 downto 16);
+   GNRMC_utc_bcd     <= bcd_vect(55 downto 20);
+   GNRMC_lat_bcd     <= bcd_vect(87 downto 56);   
+   GNRMC_long_bcd    <= bcd_vect(123 downto 88);
+   GNRMC_speed_bcd   <= bcd_vect(147 downto 124);
+   GNRMC_course_bcd  <= bcd_vect(167 downto 148);
+   GNRMC_date_bcd    <= bcd_vect(191 downto 168);
    
    
    

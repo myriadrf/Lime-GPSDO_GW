@@ -36,8 +36,12 @@ entity gnss_top is
       data                 : in  std_logic_vector(7 downto 0);  --NMEA data character
       data_v               : in  std_logic;                     --NMEA data valid
       
-      gpgsa_fix            : out std_logic;
-      gngsa_fix            : out std_logic
+      gagsa_fix            : out std_logic;
+      gbgsa_fix            : out std_logic;
+      glgsa_fix            : out std_logic;
+      gngsa_fix            : out std_logic;
+      gpgsa_fix            : out std_logic
+
 
 
         );
@@ -51,10 +55,17 @@ architecture arch of gnss_top is
 
 --inst0
 signal inst0_reset_n          : std_logic;
-signal inst0_GPGSA_valid      : std_logic;
-signal inst0_GPGSA_fix        : std_logic_vector(7 downto 0);
+
+signal inst0_GAGSA_valid      : std_logic;
+signal inst0_GBGSA_valid      : std_logic;
+signal inst0_GLGSA_valid      : std_logic;
 signal inst0_GNGSA_valid      : std_logic;
+signal inst0_GPGSA_valid      : std_logic;
+signal inst0_GAGSA_fix        : std_logic_vector(7 downto 0);
+signal inst0_GBGSA_fix        : std_logic_vector(7 downto 0);
+signal inst0_GLGSA_fix        : std_logic_vector(7 downto 0);
 signal inst0_GNGSA_fix        : std_logic_vector(7 downto 0);
+signal inst0_GPGSA_fix        : std_logic_vector(7 downto 0);
 signal inst0_GNRMC_valid      : std_logic;
 signal inst0_GNRMC_utc        : std_logic_vector(79 downto 0);
 signal inst0_GNRMC_status     : std_logic_vector(7 downto 0);
@@ -65,10 +76,16 @@ signal inst0_GNRMC_course     : std_logic_vector(47 downto 0);
 signal inst0_GNRMC_date       : std_logic_vector(47 downto 0);
 
 --inst1
-signal inst1_GPGSA_valid_bcd  : std_logic;                    
-signal inst1_GPGSA_fix_bcd    : std_logic_vector(3 downto 0);
-signal inst1_GNGSA_valid_bcd  : std_logic;                    
-signal inst1_GNGSA_fix_bcd    : std_logic_vector(3 downto 0);
+signal inst1_GAGSA_valid_bcd  : std_logic;
+signal inst1_GBGSA_valid_bcd  : std_logic;
+signal inst1_GLGSA_valid_bcd  : std_logic;
+signal inst1_GNGSA_valid_bcd  : std_logic;
+signal inst1_GPGSA_valid_bcd  : std_logic;
+signal inst1_GAGSA_fix_bcd    : std_logic_vector(3 downto 0);
+signal inst1_GBGSA_fix_bcd    : std_logic_vector(3 downto 0);
+signal inst1_GLGSA_fix_bcd    : std_logic_vector(3 downto 0);
+signal inst1_GNGSA_fix_bcd    : std_logic_vector(3 downto 0);                    
+signal inst1_GPGSA_fix_bcd    : std_logic_vector(3 downto 0);                  
 signal inst1_GNRMC_valid_bcd  : std_logic;                   
 signal inst1_GNRMC_utc_bcd    : std_logic_vector(35 downto 0);
 signal inst1_GNRMC_status     : std_logic;
@@ -81,8 +98,8 @@ signal inst1_GNRMC_course_bcd : std_logic_vector(19 downto 0);
 signal inst1_GNRMC_date_bcd   : std_logic_vector(23 downto 0);
 
 --inst2
-signal inst2_gprmc_lat        : std_logic_vector(32 downto 0);
-signal inst2_gprmc_long       : std_logic_vector(36 downto 0);
+signal inst2_gnrmc_lat        : std_logic_vector(32 downto 0);
+signal inst2_gnrmc_long       : std_logic_vector(36 downto 0);
 signal inst2_en               : std_logic;
 
 begin
@@ -101,11 +118,18 @@ nmea_parser_inst0 : entity work.nmea_parser
       reset_n        => inst0_reset_n,
       data           => data,
       data_v         => data_v,
-         
-      GPGSA_valid    => inst0_GPGSA_valid,
-      GPGSA_fix      => inst0_GPGSA_fix,
+      
+      GAGSA_valid    => inst0_GAGSA_valid,
+      GBGSA_valid    => inst0_GBGSA_valid,
+      GLGSA_valid    => inst0_GLGSA_valid,
       GNGSA_valid    => inst0_GNGSA_valid,
+      GPGSA_valid    => inst0_GPGSA_valid,
+      GAGSA_fix      => inst0_GAGSA_fix,
+      GBGSA_fix      => inst0_GBGSA_fix,
+      GLGSA_fix      => inst0_GLGSA_fix,
       GNGSA_fix      => inst0_GNGSA_fix,
+      GPGSA_fix      => inst0_GPGSA_fix,
+      
       GNRMC_valid    => inst0_GNRMC_valid,
       GNRMC_utc      => inst0_GNRMC_utc,
       GNRMC_status   => inst0_GNRMC_status,
@@ -124,10 +148,16 @@ nmea_parser_inst0 : entity work.nmea_parser
    port map(
       clk              => clk,
       reset_n          => inst0_reset_n,
-      GPGSA_valid_str  => inst0_GPGSA_valid,
-      GPGSA_fix_str    => inst0_GPGSA_fix,
+      GAGSA_valid_str  => inst0_GAGSA_valid,
+      GBGSA_valid_str  => inst0_GBGSA_valid,
+      GLGSA_valid_str  => inst0_GLGSA_valid,
       GNGSA_valid_str  => inst0_GNGSA_valid,
+      GPGSA_valid_str  => inst0_GPGSA_valid,
+      GAGSA_fix_str    => inst0_GAGSA_fix,
+      GBGSA_fix_str    => inst0_GBGSA_fix,
+      GLGSA_fix_str    => inst0_GLGSA_fix,
       GNGSA_fix_str    => inst0_GNGSA_fix,
+      GPGSA_fix_str    => inst0_GPGSA_fix,
       GNRMC_valid_str  => inst0_GNRMC_valid,
       GNRMC_utc_str    => inst0_GNRMC_utc,
       GNRMC_status_str => inst0_GNRMC_status,
@@ -137,10 +167,16 @@ nmea_parser_inst0 : entity work.nmea_parser
       GNRMC_course_str => inst0_GNRMC_course,
       GNRMC_date_str   => inst0_GNRMC_date,
       
-      GPGSA_valid_bcd  => inst1_GPGSA_valid_bcd,
-      GPGSA_fix_bcd    => inst1_GPGSA_fix_bcd,
+      GAGSA_valid_bcd  => inst1_GAGSA_valid_bcd,
+      GBGSA_valid_bcd  => inst1_GBGSA_valid_bcd,
+      GLGSA_valid_bcd  => inst1_GLGSA_valid_bcd,
       GNGSA_valid_bcd  => inst1_GNGSA_valid_bcd,
+      GPGSA_valid_bcd  => inst1_GPGSA_valid_bcd,
+      GAGSA_fix_bcd    => inst1_GAGSA_fix_bcd,
+      GBGSA_fix_bcd    => inst1_GBGSA_fix_bcd,
+      GLGSA_fix_bcd    => inst1_GLGSA_fix_bcd,
       GNGSA_fix_bcd    => inst1_GNGSA_fix_bcd,
+      GPGSA_fix_bcd    => inst1_GPGSA_fix_bcd,
       GNRMC_valid_bcd  => inst1_GNRMC_valid_bcd,
       GNRMC_utc_bcd    => inst1_GNRMC_utc_bcd,
       GNRMC_status     => inst1_GNRMC_status,
@@ -154,8 +190,8 @@ nmea_parser_inst0 : entity work.nmea_parser
       
    );
    
-   inst2_gprmc_lat   <= inst1_GNRMC_lat_n_s & inst1_GNRMC_lat_bcd;
-   inst2_gprmc_long  <= inst1_GNRMC_long_e_w & inst1_GNRMC_long_bcd;
+   inst2_gnrmc_lat   <= inst1_GNRMC_lat_n_s & inst1_GNRMC_lat_bcd;
+   inst2_gnrmc_long  <= inst1_GNRMC_long_e_w & inst1_GNRMC_long_bcd;
    
 -- ----------------------------------------------------------------------------
 -- SPI memory
@@ -175,12 +211,12 @@ nmea_parser_inst0 : entity work.nmea_parser
       en                => inst2_en,     
       gprmc_utc         => inst1_GNRMC_utc_bcd,
       gprmc_status      => inst1_GNRMC_status,
-      gprmc_lat         => inst2_gprmc_lat,
-      gprmc_long        => inst2_gprmc_long,
+      gprmc_lat         => inst2_gnrmc_lat,
+      gprmc_long        => inst2_gnrmc_long,
       gprmc_speed       => inst1_GNRMC_speed_bcd,
       gprmc_course      => inst1_GNRMC_course_bcd,
       gprmc_date        => inst1_GNRMC_date_bcd,     
-      gpgsa_fix         => inst1_GPGSA_fix_bcd      
+      gpgsa_fix         => inst1_GNGSA_fix_bcd      
    );
    
 -- ----------------------------------------------------------------------------
@@ -188,29 +224,46 @@ nmea_parser_inst0 : entity work.nmea_parser
 -- ----------------------------------------------------------------------------    
    process(clk, reset_n)
    begin
-      if reset_n = '0' then 
+      if reset_n = '0' then
+         gagsa_fix <= '0';
+         gbgsa_fix <= '0';
+         glgsa_fix <= '0';
+         gngsa_fix <= '0'; 
          gpgsa_fix <= '0';
       elsif (clk'event AND clk='1') then
-         if inst1_GPGSA_fix_bcd = x"3" then 
-            gpgsa_fix <= '1';
+         if inst1_GAGSA_fix_bcd = x"3" then 
+            gagsa_fix <= '1';
          else 
-            gpgsa_fix <= '0';
+            gagsa_fix <= '0';
          end if;
-      end if;
-   end process;
-   
-   process(clk, reset_n)
-   begin
-      if reset_n = '0' then 
-         gngsa_fix <= '0';
-      elsif (clk'event AND clk='1') then
+         
+         if inst1_GBGSA_fix_bcd = x"3" then 
+            gbgsa_fix <= '1';
+         else 
+            gbgsa_fix <= '0';
+         end if;
+         
+         if inst1_GLGSA_fix_bcd = x"3" then 
+            glgsa_fix <= '1';
+         else 
+            glgsa_fix <= '0';
+         end if;
+         
          if inst1_GNGSA_fix_bcd = x"3" then 
             gngsa_fix <= '1';
          else 
             gngsa_fix <= '0';
          end if;
+         
+         if inst1_GPGSA_fix_bcd = x"3" then 
+            gpgsa_fix <= '1';
+         else 
+            gpgsa_fix <= '0';
+         end if; 
+         
       end if;
    end process;
+   
   
 end arch;   
 
