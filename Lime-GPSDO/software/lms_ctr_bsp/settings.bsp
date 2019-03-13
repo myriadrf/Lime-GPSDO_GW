@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Sep 7, 2018 12:11:46 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1536311506133</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>H:\working_dir\altera\Lime-GPSDO\Lime-GPSDO\software\lms_ctr_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Mar 13, 2019 11:12:06 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1552468326563</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>G:\working_dir\altera\Lime-GPSDO\Lime-GPSDO\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
