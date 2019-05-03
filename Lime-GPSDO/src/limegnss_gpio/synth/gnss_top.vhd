@@ -40,7 +40,8 @@ entity gnss_top is
       gbgsa_fix            : out std_logic;
       glgsa_fix            : out std_logic;
       gngsa_fix            : out std_logic;
-      gpgsa_fix            : out std_logic
+      gpgsa_fix            : out std_logic;
+      any_fix              : out std_logic
 
 
 
@@ -52,7 +53,11 @@ end gnss_top;
 -- ----------------------------------------------------------------------------
 architecture arch of gnss_top is
 --declare signals,  components here
-
+signal gagsa_fix_internal     : std_logic;
+signal gbgsa_fix_internal     : std_logic;
+signal glgsa_fix_internal     : std_logic;
+signal gngsa_fix_internal     : std_logic;
+signal gpgsa_fix_internal     : std_logic;
 --inst0
 signal inst0_reset_n          : std_logic;
 
@@ -216,7 +221,11 @@ nmea_parser_inst0 : entity work.nmea_parser
       gprmc_speed       => inst1_GNRMC_speed_bcd,
       gprmc_course      => inst1_GNRMC_course_bcd,
       gprmc_date        => inst1_GNRMC_date_bcd,     
-      gpgsa_fix         => inst1_GNGSA_fix_bcd      
+      gpgsa_fix         => inst1_GPGSA_fix_bcd,
+      gagsa_fix         => inst1_GAGSA_fix_bcd,
+      gbgsa_fix         => inst1_GBGSA_fix_bcd,
+      glgsa_fix         => inst1_GLGSA_fix_bcd
+      
    );
    
 -- ----------------------------------------------------------------------------
@@ -225,44 +234,53 @@ nmea_parser_inst0 : entity work.nmea_parser
    process(clk, reset_n)
    begin
       if reset_n = '0' then
-         gagsa_fix <= '0';
-         gbgsa_fix <= '0';
-         glgsa_fix <= '0';
-         gngsa_fix <= '0'; 
-         gpgsa_fix <= '0';
+         gagsa_fix_internal <= '0';
+         gbgsa_fix_internal <= '0';
+         glgsa_fix_internal <= '0';
+         gngsa_fix_internal <= '0'; 
+         gpgsa_fix_internal <= '0';
       elsif (clk'event AND clk='1') then
          if inst1_GAGSA_fix_bcd = x"3" then 
-            gagsa_fix <= '1';
+            gagsa_fix_internal <= '1';
          else 
-            gagsa_fix <= '0';
+            gagsa_fix_internal <= '0';
          end if;
          
          if inst1_GBGSA_fix_bcd = x"3" then 
-            gbgsa_fix <= '1';
+            gbgsa_fix_internal <= '1';
          else 
-            gbgsa_fix <= '0';
+            gbgsa_fix_internal <= '0';
          end if;
          
          if inst1_GLGSA_fix_bcd = x"3" then 
-            glgsa_fix <= '1';
+            glgsa_fix_internal <= '1';
          else 
-            glgsa_fix <= '0';
+            glgsa_fix_internal <= '0';
          end if;
          
          if inst1_GNGSA_fix_bcd = x"3" then 
-            gngsa_fix <= '1';
+            gngsa_fix_internal <= '1';
          else 
-            gngsa_fix <= '0';
+            gngsa_fix_internal <= '0';
          end if;
          
          if inst1_GPGSA_fix_bcd = x"3" then 
-            gpgsa_fix <= '1';
+            gpgsa_fix_internal <= '1';
          else 
-            gpgsa_fix <= '0';
+            gpgsa_fix_internal <= '0';
          end if; 
          
       end if;
    end process;
+   
+gagsa_fix <= gagsa_fix_internal;
+gbgsa_fix <= gbgsa_fix_internal; 
+glgsa_fix <= glgsa_fix_internal;
+gngsa_fix <= gngsa_fix_internal;
+gpgsa_fix <= gpgsa_fix_internal;
+
+any_fix   <= gagsa_fix_internal or gbgsa_fix_internal or glgsa_fix_internal or gngsa_fix_internal or gpgsa_fix_internal;
+   
    
   
 end arch;   

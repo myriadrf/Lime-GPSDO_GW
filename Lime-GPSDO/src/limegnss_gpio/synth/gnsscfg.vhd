@@ -47,8 +47,10 @@ entity gnsscfg is
       gprmc_course      : in std_logic_vector(19 downto 0); -- X2-XX1.XX0 
       gprmc_date        : in std_logic_vector(23 downto 0); -- DD-MM-YY
       
-      gpgsa_fix         : in std_logic_vector(3 downto 0) --1 = Fix not available, 2 = 2D, 3 = 3D
-      
+      gagsa_fix         : in std_logic_vector(3 downto 0); --1 = Fix not available, 2 = 2D, 3 = 3D Galileo
+      gbgsa_fix         : in std_logic_vector(3 downto 0); --1 = Fix not available, 2 = 2D, 3 = 3D BeiDou
+      glgsa_fix         : in std_logic_vector(3 downto 0); --1 = Fix not available, 2 = 2D, 3 = 3D GLONASS
+      gpgsa_fix         : in std_logic_vector(3 downto 0)  --1 = Fix not available, 2 = 2D, 3 = 3D GPS
    );
 end gnsscfg;
 
@@ -240,7 +242,7 @@ gprmc_date_dd       <= gprmc_date(23 downto 16);
                -- inst_reg=17;
                when "10001" => dout_reg <= x"00" & gprmc_date_dd;
                -- inst_reg=20;
-               when "10100" => dout_reg <= x"00" & gpgsa_fix & x"0";
+               when "10100" => dout_reg <= gagsa_fix & gbgsa_fix & gpgsa_fix & glgsa_fix;
                
                when others  => dout_reg <= mem(to_integer(unsigned(inst_reg(4 downto 0))));
             end case;
@@ -283,7 +285,7 @@ gprmc_date_dd       <= gprmc_date(23 downto 16);
          mem(17)  <= "0000000000000000"; --  0 free, Reserved[7:0], GPRMC_DATE_DD[7:0]
          mem(18)  <= "0000000000000000"; --  0 free, Reserved
          mem(19)  <= "0000000000000000"; --  0 free, Reserved
-         mem(20)  <= "0000000000000000"; --  0 free, Reserved[3:0], GPGSA_FIX[3:0], Reserved[3:0]
+         mem(20)  <= "0000000000000000"; --  0 free, GAGSA_FIX[3:0], GBGSA_FIX[3:0], GPGSA_FIX[3:0], GLGSA_FIX[3:0]
          mem(21)  <= "0000000000000000"; --  0 free, Reserved
          mem(22)  <= "0000000000000000"; --  0 free, Reserved
          mem(23)  <= "0000000000000000"; --  0 free, Reserved

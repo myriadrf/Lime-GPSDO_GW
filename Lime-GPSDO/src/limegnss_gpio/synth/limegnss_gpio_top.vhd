@@ -94,6 +94,7 @@ signal inst1_gbgsa_fix              : std_logic;
 signal inst1_glgsa_fix              : std_logic;
 signal inst1_gngsa_fix              : std_logic;
 signal inst1_gpgsa_fix              : std_logic;
+signal inst1_any_fix                : std_logic;
 --inst2
 signal inst2_gnss_fix               : std_logic;
 
@@ -166,14 +167,14 @@ gnss_top_inst1 : entity work.gnss_top
       gbgsa_fix            => inst1_gbgsa_fix,
       glgsa_fix            => inst1_glgsa_fix,
       gngsa_fix            => inst1_gngsa_fix,
-      gpgsa_fix            => inst1_gpgsa_fix
+      gpgsa_fix            => inst1_gpgsa_fix,
+      any_fix              => inst1_any_fix
 
      );   
 -- ----------------------------------------------------------------------------
 -- Led module
 -- ----------------------------------------------------------------------------
-   inst2_gnss_fix <= inst1_gpgsa_fix OR inst1_gngsa_fix OR inst1_glgsa_fix OR 
-                     inst1_gbgsa_fix OR inst1_gagsa_fix;
+   inst2_gnss_fix <= inst1_any_fix;
    
    gnss_led_inst2 : entity work.gnss_led
    port map(
